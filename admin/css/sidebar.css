@@ -1,0 +1,41 @@
+.sidenav{
+    background: #f8f9fa;
+    height:100%
+}
+ul li {
+    list-style: none;
+    color:#01265a;
+}
+ul li a{
+    color: #01265a;
+}
+ul li a:hover{
+    text-decoration: none;
+}
+/* .sidenav-list{
+    padding-top: 10px
+} */
+.sidenav-sublist{
+    padding-top: 8px;
+    
+}
+#add-category-form{
+    display: none;
+}
+.fa-gauge, .fa-minus{
+    color:red;
+}
+.fa-plus, .fa-square-plus{
+    color: green;
+}
+.fa-dice-d6, .fa-list, .fa-film, .fa-video, .fa-circle-dot, .fa-images, .fa-users, .fa-newspaper{
+    color: royalblue;
+}
+
+.fa-upload{
+    color: maroon;
+}
+
+.fa-layer-group{
+    color: orangered;
+}
