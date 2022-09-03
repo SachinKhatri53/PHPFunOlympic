@@ -20,7 +20,6 @@ if(isset($_POST['add_category'])){
 <link rel="stylesheet" href="css/sidebar.css">
 <div class="sidenav">
     <div class="row">
-        
         <ul>
         <hr>
             <li class="sidenav-list"><a href=""><i class="fa-solid fa-gauge"></i>&nbsp;Dashboard</a></li>

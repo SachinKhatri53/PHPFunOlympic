@@ -96,4 +96,45 @@ function deleteCategories(){
          $delete_cat = mysqli_query($connection, $query);
      }
 }
+function deleteHighlights(){
+    global $connection;
+    if (isset($_GET['delete'])) {
+         $vid = $_GET['delete'];
+         $query = "DELETE FROM videos WHERE vid = {$vid}";
+         $delete_highlight = mysqli_query($connection, $query);
+     }
+}
+function deleteLiveVideos(){
+    global $connection;
+    if (isset($_GET['delete'])) {
+         $lvid = $_GET['delete'];
+         $query = "DELETE FROM live_videos WHERE lvid = {$lvid}";
+         $delete_live = mysqli_query($connection, $query);
+     }
+}
+function deletePhotos(){
+    global $connection;
+    if (isset($_GET['delete'])) {
+         $pid = $_GET['delete'];
+         $query = "DELETE FROM photos WHERE pid = {$pid}";
+         $delete_photo = mysqli_query($connection, $query);
+     }
+}
+function deleteNews(){
+    global $connection;
+    if (isset($_GET['delete'])) {
+         $nid = $_GET['delete'];
+         $query = "DELETE FROM news WHERE nid = {$nid}";
+         $delete_news = mysqli_query($connection, $query);
+     }
+}
+function deleteFixtures(){
+    global $connection;
+    if (isset($_GET['delete'])) {
+         $fid = $_GET['delete'];
+         $query = "DELETE FROM fixtures WHERE fid = {$fid}";
+         $delete_fixtures = mysqli_query($connection, $query);
+     }
+}
+
 ?>

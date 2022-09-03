@@ -1,58 +1,42 @@
+<title>Admin: View All Live Videos</title>
 <?php include "admin_header.php" ?>
 <div class="col-md-3">
     <?php include "sidebar.php"?>
 </div>
-<div class="col-md-8">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <table class="table table-bordered table-sm table-hover">
-                    <h4>Live Videos List</h4>
-                    <hr>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>URL</th>
-                            <th>Category</th>
-                            <th>Uploaded Date</th>
-                            <th>Uploaded Time</th>
-                            <th colspan="3">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php     
-                    $query = "SELECT * FROM live_videos";
-                    $select_news = mysqli_query($connection, $query);
-                    while($row = mysqli_fetch_assoc($select_news)) {
-                        $lvid                = $row['lvid'];
-                        $video_title     = $row['video_title'];
-                        $video_description     = $row['video_description'];
-                        $video_url     = $row['video_url'];
-                        $video_category     = $row['video_category']; 
-                         
-                        $uploaded_date     = $row['uploaded_date'];       
-                        $uploaded_time     = $row['uploaded_time']; 
-                        echo "<tr>";
-                    echo "<td>$lvid</td>";
-                    echo "<td>$video_title</td>";
-                    echo "<td>$video_description</td>";
-                    echo "<td><a href='$video_url' target='_blank'>link</a></td>";
-                    echo "<td>$video_category</td>";
-                    
-                    echo "<td>$uploaded_date</td>";
-                    echo "<td>$uploaded_time</td>";
-                    echo "<td><a href='comments.php?delete=$lvid' class='btn btn-primary'>View</a></td>";
-                    echo "<td><a href='comments.php?delete=$lvid' class='btn btn-warning'>Edit</a></td>";
-                    echo "<td><a href='comments.php?delete=$lvid' class='btn btn-danger'>Delete</a></td>";
-                    echo "</tr>";
-                    }
-                    ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="col-md-9" id="main-container">
+    <h4 class="text-center">Live Videos</h4>
+    <div class="row justify-content-center">
+        <?php
+        if(recordCount('live_videos')==0){
+            echo"<h5 class='text-danger'>No live videos</h5>";
+        }
+        else{
+            deleteLiveVideos();
+            $query = "SELECT * FROM live_videos";
+            $select_videos = mysqli_query($connection, $query);
+            while($row = mysqli_fetch_assoc($select_videos)) {
+                $lvid        = $row['lvid'];
+                $video_title      = $row['video_title'];
+                $video_category   = $row['video_category'];
+                $video_description= $row['video_description']; 
+                $video_url     = $row['video_url'];
+                $uploaded_date= $row['uploaded_date'];
+                $uploaded_time= $row['uploaded_time']; 
+                echo "<div class='col-md-3' style='margin-bottom:20px'>
+                        <div class='card'>
+                            <iframe width='' height='' src='$video_url' autoplay>
+                            </iframe>
+                            <div class='card-footer'>
+                                <small class='text-muted'>Uploaded: $uploaded_date</small>
+                                <a href='' style='margin-left:5px;font-size:12px; color:orange' data-toggle='tooltip' data-placement='bottom' title='view'><i class='fa-solid fa-eye'></i></a>
+                                <a href='' style='font-size:12px; color:blue' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a>
+                                <a href='view_live_videos.php?delete=$lvid' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" style='font-size:12px; color:Red' data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a>
+                            </div>
+                        </div>
+                    </div>";
+            }
+        }
+        ?>
     </div>
 </div>
 <?php include "admin_footer.php" ?>

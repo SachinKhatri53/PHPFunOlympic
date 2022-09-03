@@ -1,3 +1,4 @@
+<title>Admin: View All Users</title>
 <?php include "admin_header.php" ?>
 <div class="col-md-3">
     <?php include "sidebar.php"?>
