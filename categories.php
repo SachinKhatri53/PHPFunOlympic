@@ -1,7 +1,10 @@
+<title>Categories</title>
 <?php include "header.php" ?>
+<div class="row jumbotron justify-content-center" style="margin-top:80px; color:#ea540a; padding:40px 0">
+    <h2>Categories</h2>
+</div>
 <div class="row">
     <div class="container">
-        <h4 class="text-center" style="margin:10px 0">Sports</h4>
         <div class="row" style="padding: 20px 0">
             <?php
             $query = "SELECT * FROM categories";
@@ -14,15 +17,19 @@
                 while($row = mysqli_fetch_assoc($select_categories)) {
                     $cid                = $row['cid'];
                         $category_title     = $row['category_title']; ?>
-            <a href="video.php?category=<?php echo $category_title ?>">
-                <div class="card text-white bg-info mb-3" style="max-width: 12rem; margin-right:20px">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $category_title ?></h5>
-                    </div>
-                </div>
-                </a>
-                <hr>
-                <?php } } ?>
+            <div class="col-md-3" style="padding: 20px 10px">
+                <a href="video.php?category=<?php echo $category_title ?>" style="color:#ea540a; "><?php echo $category_title ?>
+                </a></div>
+            <!-- <a href="video.php?category=<?php echo $category_title ?>" style="color:#ea540a;">
+
+                    <?php echo $category_title ?>
+            </a>
+            <hr> -->
+            <?php 
+        } } 
+        ?>
+        
         </div>
     </div>
-    <?php include "footer.php" ?>
+</div>
+<?php include "footer.php" ?>

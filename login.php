@@ -6,6 +6,8 @@ $strongRegex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username    = escape($_POST['username']);
 	$password = escape($_POST['password']);
+    $remember = escape($_POST['remember']);
+    
 	$error = [
 		'password'=> '',
 		'username'=>'',
@@ -33,6 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	if(empty($error)){
+        if(!empty($remember)){
+            setcookie('username', $_POST['username'], time()+3600);
+            setcookie('password', $_POST['password'], time()+3600);
+        }
+        else if(empty($remember)){
+            setcookie('username', '', time()-3600);
+            setcookie('password', '', time()-3600);
+        }
 		login_user($username, $password);
 	}
 }
@@ -75,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <input type="text" class="form-control" id="username" name="username"
                                     placeholder="Username" autocomplete="off"
-                                    value="<?php echo isset($username) ? $username : '' ?>">
+                                    value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : '' ?>">
                             </div>
                             <p class="text-danger" style="font-size:12px">
                                 <?php echo isset($error['username']) ? $error['username'] : '' ?></p>
@@ -90,11 +100,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <input type="password" class="form-control" id="password" name="password"
                                     placeholder="Password" autocomplete="off"
-                                    value="<?php echo isset($password) ? $password : '' ?>">
+                                    value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : '' ?>">
                             </div>
                             <p class="text-danger" style="font-size:12px">
                                 <?php echo isset($error['password']) ? $error['password'] : '' ?></p>
 
+                        </div>
+                        <div class="form-group">
+                            
+                            <input type="checkbox" name="remember" id="" <?php if(isset($_COOKIE['username'])){echo "checked";} ?>>
+                            <label for="">keep me logged in</label>
                         </div>
                 </div>
                 <div class="form-group">

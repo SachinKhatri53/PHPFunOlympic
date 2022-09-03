@@ -3,6 +3,15 @@
 if(isset($_POST['username']) && isset($_POST['password'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $remember = $_POST['remember'];
+    if(!empty($remember)){
+        setcookie('username', $_POST['username'], time()+3600);
+        setcookie('password', $_POST['password'], time()+3600);
+    }
+    else if(empty($remember)){
+        setcookie('username', '', time()-3600);
+        setcookie('password', '', time()-3600);
+    }
     login_user($username, $password);
 }
 ?>
@@ -26,9 +35,11 @@ if(isset($_POST['username']) && isset($_POST['password'])){
             <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt=""></a>
             <h4>Fun Olympic</h4>
             <form class="form-inline" method="post" style="background:lightgrey; padding:10px">
-                <input class="form-control mr-sm-2" type="text" placeholder="email" name="username">
-                <input class="form-control mr-sm-2" type="password" placeholder="password" name="password">
+                <input class="form-control mr-sm-2" type="text" placeholder="email" name="username" value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : '' ?>">
+                <input class="form-control mr-sm-2" type="password" placeholder="password" name="password" value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : '' ?>">
+                <input class="form-control mr-sm-2" type="checkbox" name="remember" <?php if(isset($_COOKIE['username'])){echo "checked";} ?>>remember me
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
+                
             </form>            
         </nav>
         <p class="text-right">Not registered yet?<a href="register.php">Register</a></p>

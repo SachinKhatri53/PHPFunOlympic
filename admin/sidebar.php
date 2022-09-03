@@ -65,7 +65,7 @@ if(isset($_POST['add_category'])){
                 </ul>
             </li>
             <hr>
-            <li class="sidenav-list"><a href="view_videos.php"><i class="fa-solid fa-users"></i>&nbsp;View Users</a></li>
+            <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-users"></i>&nbsp;View Users</a></li>
     </div>
 </div>
 <script src="js/sidebar.js"></script>

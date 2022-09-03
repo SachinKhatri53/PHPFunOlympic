@@ -1,31 +1,32 @@
-<?php include "header.php" ?>
-<?php include "category_filter.php" ?>
-<div class="row" style="padding:20px 50px">
 <?php
-                    $query = "SELECT * FROM fixtures";
-                    $select_fixtures = mysqli_query($connection, $query);
-                    while($row = mysqli_fetch_assoc($select_fixtures)) {
-                        
-                        $fid                = $row['fid'];
-                        $fixture_title     = $row['fixture_title'];
-                        $fixture_category     = $row['fixture_category']; 
-                        $fixture_countries     = $row['fixture_countries']; 
-                        $fixture_date     = $row['fixture_date'];       
-                        $fixture_time     = $row['fixture_time'];
-                        ?>
-    <div class="card-deck">
-        <div class="card border-success" style="max-width: 18rem;">
-        <div class="card-header">
-                <small class="text-muted">Date:<?php echo $fixture_date ?> <br>Time:<?php echo $fixture_time ?></small>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title" style="text-align:center"><?php echo $fixture_title ?></h5>
-                <small class="text-right"><?php echo $fixture_category ?></small>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Countries:<?php echo $fixture_countries ?></small>
-            </div>
+if(isset($_GET['category'])){
+    $category_name = $_GET['category'];
+}
+?>
+<?php include "header.php" ?>
+<style>
+.card:hover {
+    box-shadow: .75em .75em 1em rgb(186, 185, 185);
+}
+</style>
+
+<div class="row jumbotron justify-content-center" style="margin-top:80px; color:#ea540a; padding:40px 0">
+    <h2>Fixtures</h2>
+</div>
+<?php include "category_filter.php" ?>
+
+<div class="row">
+    <div class="container">
+        <div class="card-deck">
+            <?php
+            if(empty($category_name)){
+                fetch_fixtures();
+            }
+            else{
+                fixtures_by_category($category_name);
+            }
+             ?>
         </div>
-    </div> <?php } ?>
+    </div>
 </div>
 <?php include "footer.php" ?>

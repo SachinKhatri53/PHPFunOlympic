@@ -8,6 +8,7 @@ if(isset($_GET['nid'])){
 <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=62fb4bf64897e5001907e83c&product=inline-share-buttons" async="async"></script>
 
 <?php include "header.php" ?>
+
 <?php
                     $query = "SELECT * FROM news WHERE nid = $nid";
                     $select_news = mysqli_query($connection, $query);
@@ -19,7 +20,8 @@ if(isset($_GET['nid'])){
                         $uploaded_date     = $row['uploaded_date'];       
                         $uploaded_time     = $row['uploaded_time'];
                         ?>
-<h4 class="text-center"><?php echo $news_title ?></h4>
+                        
+<h4 class="text-center" style="margin-top:80px; color:#ea540a;padding:20px 0"><?php echo $news_title ?></h4>
 <h6 class="text-danger text-right"><?php echo $uploaded_date ?></h6>
 <div class="row">
     <div class="col-md-4">

@@ -1,10 +1,12 @@
 .gallery{
   border: 1px solid #ccc;
   margin-bottom: 3px;
+  transition: transform .2s;
 }
 
 .gallery:hover {
   border: 1px solid #777;
+  transform: scale(1.1);
 }
 .gallery img {
 width: 100%;

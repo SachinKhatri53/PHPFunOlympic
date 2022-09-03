@@ -12,22 +12,21 @@
                     <hr>
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Title</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php     
+                    <?php
+                    deleteCategories();
                     $query = "SELECT * FROM categories";
                     $select_categories = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($select_categories)) {
                         $cid                = $row['cid'];
                         $category_title     = $row['category_title'];       
                         echo "<tr>";
-                    echo "<td>$cid </td>";
                     echo "<td>$category_title</td>";
-                    echo "<td><a href='comments.php?delete=$cid' class='btn btn-danger'>Delete</a></td>";
+                    echo "<td><a href='view_categories.php?delete=$cid' class='btn btn-danger' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \">Delete</a></td>";
                     echo "</tr>";
                     }
                     ?>

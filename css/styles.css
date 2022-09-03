@@ -1,20 +1,70 @@
 body{
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: 'Secular One', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
 .logo{
     padding: 20px 10px;
 }
 .mr-auto .nav-item{
-    padding:0 50px !important;
+    padding:0 35px !important;
 }
-footer{
+.footer{
     padding:20px 30px;
-    background-color: aliceblue;
+    background-color: #030330;
+    color:aliceblue;
 }
-footer ul li{
+.footer ul li{
     margin-right: 20px;
 }
-footer ul li i{
+.footer ul li i{
     font-size: 2em;
-    color:#009a49;
+    color:aliceblue;
 }
+.navbar{
+    background:#030330;
+    width:100%;
+}
+.nav-item:hover{
+    background-color: aliceblue;
+    border-radius: 10px;
+    color: #ea540a !important;
+}
+.nav-link{
+    color:aliceblue !important;
+    padding: 10px 30px;
+}
+.nav-link:hover{
+    color: #ea540a !important;
+    background-color: aliceblue;
+}
+.btn-contact{
+    color: aliceblue;
+    background-color: #030330;
+    padding:10px 50px;
+}
+.btn-contact:hover{
+    color:#030330;
+    background: aliceblue;
+    border: #030330 1px solid;
+}
+.btn-filter{
+    color:aliceblue;
+    background:#030330; 
+}
+.btn-filter:hover{
+    color:#ea540a;
+    background: aliceblue;
+border: #030330 1px solid;
+}
+/* .btn-category{
+    color:aliceblue;
+    background:#030330; 
+}
+.btn-category:hover{
+    color:#ea540a;
+    background: aliceblue;
+border: #030330 1px solid;
+} */

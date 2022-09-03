@@ -17,7 +17,6 @@ $username = $_SESSION['username'];
 
 <body>
     <div class="container-fluid">
-        <?php echo $_SESSION['username'] ?>
         <nav class="navbar navbar-expand-md navbar-light bg-light">
             <a class="navbar-brand" href=""><img src="../images/logo.png" height="50" width="50" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -74,6 +73,9 @@ $username = $_SESSION['username'];
                     </div>
                 </ul>
                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="../home.php" class="nav-link">To The Site</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="profile.php">
                         <?php

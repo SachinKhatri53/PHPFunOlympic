@@ -1,11 +1,11 @@
 <title>Contact</title>
 <?php include "header.php" ?>
 
-<div class="row">
+<div class="row" style="margin-top:80px">
     <div class="col-md-1"></div>
     <div class="col-md-6" style="margin-top:20px">
-        <h4 class="text-center">Contact Us</h4>
-        <p class="text-center">If you have any question, please let us know</p>
+    <h2 class="text-center" style="color:#ea540a">Contact</h2>
+        <p class="text-center" style="color:#ea540a">If you have any question, please let us know</p>
         <hr>
         <div class="row">
 
@@ -31,7 +31,7 @@
             <textarea name="message" id="" cols="30" rows="3" class="form-control"></textarea>
         </div>
         <div class="form-group">
-            <input type="submit" value="Send" class="btn btn-primary">
+            <input type="submit" value="Send" class="btn btn-contact">
         </div>
     </div>
     <div class="col-md-1"></div>
