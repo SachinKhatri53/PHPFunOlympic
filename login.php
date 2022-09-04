@@ -36,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	if(empty($error)){
         if(!empty($remember)){
-            setcookie('username', $_POST['username'], time()+3600);
-            setcookie('password', $_POST['password'], time()+3600);
+            setcookie('username', $_POST['username'], time()+86400);
+            setcookie('password', $_POST['password'], time()+86400);
         }
         else if(empty($remember)){
-            setcookie('username', '', time()-3600);
-            setcookie('password', '', time()-3600);
+            setcookie('username', '', time()-86400);
+            setcookie('password', '', time()-86400);
         }
 		login_user($username, $password);
 	}

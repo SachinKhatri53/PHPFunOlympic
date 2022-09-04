@@ -5,12 +5,12 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     $password = $_POST['password'];
     $remember = $_POST['remember'];
     if(!empty($remember)){
-        setcookie('username', $_POST['username'], time()+3600);
-        setcookie('password', $_POST['password'], time()+3600);
+        setcookie('username', $_POST['username'], time()+86400);
+        setcookie('password', $_POST['password'], time()+86400);
     }
     else if(empty($remember)){
-        setcookie('username', '', time()-3600);
-        setcookie('password', '', time()-3600);
+        setcookie('username', '', time()-86400);
+        setcookie('password', '', time()-86400);
     }
     login_user($username, $password);
 }

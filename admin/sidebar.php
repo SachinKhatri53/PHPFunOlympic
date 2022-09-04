@@ -22,7 +22,7 @@ if(isset($_POST['add_category'])){
     <div class="row">
         <ul>
         <hr>
-            <li class="sidenav-list"><a href=""><i class="fa-solid fa-gauge"></i>&nbsp;Dashboard</a></li>
+            <li class="sidenav-list"><a href="../admin/"><i class="fa-solid fa-gauge"></i>&nbsp;Dashboard</a></li>
             <hr>
             <li class="sidenav-list" id="category"><i class="fa-solid fa-list"></i>&nbsp;Sports Category
                 <ul>

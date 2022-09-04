@@ -12,10 +12,10 @@ function escape($string) {
     return mysqli_real_escape_string($connection, trim($string));
 }
 
-function upload_video($title, $category_title, $description, $video_path, $upload_date, $upload_time){
+function upload_video($title, $category_title, $description, $video_path, $tags, $upload_date, $upload_time){
     global $connection;
-    $stmt = mysqli_prepare($connection, "INSERT INTO videos(title, category_title, description, video_path, upload_date, upload_time) VALUES(?,?,?,?,?,?) ");
-    mysqli_stmt_bind_param($stmt, 'ssssss', $title, $category_title, $description, $video_path, $upload_date, $upload_time);
+    $stmt = mysqli_prepare($connection, "INSERT INTO videos(title, category_title, description, video_path, tags, upload_date, upload_time) VALUES(?,?,?,?,?,?,?) ");
+    mysqli_stmt_bind_param($stmt, 'sssssss', $title, $category_title, $description, $video_path, $tags, $upload_date, $upload_time);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     if($stmt){
@@ -136,5 +136,20 @@ function deleteFixtures(){
          $delete_fixtures = mysqli_query($connection, $query);
      }
 }
-
+function editHighlight($vid, $title, $category_title, $description, $video_path, $tags, $upload_date, $upload_time){
+    global $connection;
+        $query = "UPDATE videos SET ";
+        $query .= "title = '{$title}', ";
+        $query .= "category_title = '{$category_title}', ";
+        $query .= "description = '{$description}', ";
+        $query .= "video_path = '{$video_path}', ";
+        $query .= "tags = '{$tags}', ";
+        $query .= "upload_date = '{$upload_date}', ";
+        $query .= "upload_time = '{$upload_time}'";
+        $query .= " WHERE vid = {$vid}";
+        $edit_highlight = mysqli_query($connection, $query);
+        if($edit_highlight){
+            return true;
+        }
+    }
 ?>
