@@ -29,6 +29,9 @@ $username = $_SESSION['username'];
                         <li class="nav-item active">
                             <a class="nav-link" href="home.php">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="video_archive.php">Videos</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -47,6 +50,7 @@ $username = $_SESSION['username'];
                                 <a class='dropdown-item' href='categories.php'>More Categories</a>
                             </div>
                         </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="news.php">News</a>
                         </li>
@@ -79,8 +83,8 @@ $username = $_SESSION['username'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="logout.php" style="color:red"><i
-                                    class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</a>
+                            <a class="nav-link logout" href="logout.php"><i
+                            class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</a>
                         </li>
                     </ul>
                 </div>

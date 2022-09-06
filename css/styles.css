@@ -9,11 +9,11 @@ body{
     padding: 20px 10px;
 }
 .mr-auto .nav-item{
-    padding:0 35px !important;
+    margin:0 35px !important;
 }
 .footer{
     padding:20px 30px;
-    background-color: #030330;
+    background-color: #027541;
     color:aliceblue;
 }
 .footer ul li{
@@ -24,22 +24,23 @@ body{
     color:aliceblue;
 }
 .navbar{
-    background:#030330;
+    background:#027541;
     width:100%;
+
 }
+.nav-item{
+    border: 2px #027541 solid;
+}
+
 .nav-item:hover{
-    background-color: aliceblue;
-    border-radius: 10px;
-    color: #ea540a !important;
+    border-bottom: 2px aliceblue solid;
+    
 }
+
 .nav-link{
     color:aliceblue !important;
-    padding: 10px 30px;
 }
-.nav-link:hover{
-    color: #ea540a !important;
-    background-color: aliceblue;
-}
+
 .btn-contact{
     color: aliceblue;
     background-color: #030330;
