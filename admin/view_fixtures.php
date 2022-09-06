@@ -42,8 +42,7 @@
                                         <td>$fixture_time</td>
                                         <td>$fixture_category </td>
                                         <td>$fixture_countries</td>
-                                        <td><a href='' style='color:orange' data-toggle='tooltip' data-placement='bottom' title='view'><i class='fa-solid fa-eye'></i></a></td>
-                                        <td><a href='' style='color:blue' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a></td>
+                                        <td><a href='edit_fixtures.php?edit=$fid' style='color:blue' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a></td>
                                         <td><a href='view_fixtures.php?delete=$fid'  style='color:Red' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a></td>
                                     </tr>";
                             }

@@ -43,7 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             setcookie('username', '', time()-86400);
             setcookie('password', '', time()-86400);
         }
-		login_user($username, $password);
+		if(!login_user($username, $password)){
+            $inactive = "You account is inactive";
+        }
 	}
 }
 
@@ -76,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <h1></h1>
                     <form action="" method="post">
                         <h2>Login Page</h2>
+                        <h6 class='text-danger'><?php echo isset($inactive)?$inactive : '' ?></h5>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -109,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="form-group">
                             
                             <input type="checkbox" name="remember" id="" <?php if(isset($_COOKIE['username'])){echo "checked";} ?>>
-                            <label for="">keep me logged in</label>
+                            <label for="">remember me</label>
                         </div>
                 </div>
                 <div class="form-group">

@@ -72,7 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secretKey.'&response='.$_POST['g-recaptcha-response']);
 		$responseData = json_decode($verifyResponse);
 		if($responseData->success){
-			register_user($fullname, $phone, $email, $nationality, $username, $password);
+			if(register_user($fullname, $phone, $nationality, $email, $username, $password)){
+                echo("<p class='text-success'>Registration successful</p>");
+            }
+            else{
+                echo("<p class='text-danger'>Registration failed</p>");
+            }
 		}
 		else{ 
 			$statusMsg = 'Robot verification failed, please try again.'; 

@@ -120,7 +120,7 @@
                         <source src="videos/<?php echo $video_path ?>" type="video/mp4">
                     </video>
                     <div class="card-body">
-                        <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>">
+                        <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
                             <h5 class="card-title"
                                 style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
                                     -webkit-box-orient: vertical; box-orient: vertical; -webkit-line-clamp: 2; ine-clamp: 2; ">
@@ -161,7 +161,7 @@
                     <div class="card">
 
                         <iframe src="<?php echo $video_url ?>"></iframe>
-                        <a href="play_video.php?vid=<?php echo $lvid ?>&title=<?php echo $title ?>">
+                        <a href="play_video.php?vid=<?php echo $lvid ?>&title=<?php echo $title ?>&type=live">
                             <div class="card-body">
                                 <h5 class="card-title"
                                     style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;

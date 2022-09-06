@@ -3,7 +3,7 @@
 <div class="col-md-3">
     <?php include "sidebar.php"?>
 </div>
-<div class="col-md-7">
+<div class="col-md-9" id="main-container">
     <div class="row" style="padding:20px 0">
         <?php
         $query = "SELECT * FROM users WHERE username='sachin'";
@@ -45,8 +45,6 @@
             <hr>
             <a href="">Change Password</a>
             <hr>
-            <br>
-            <a href="" class="btn btn-danger">Deactivate</a>
         </div>
     </div>
 </div>

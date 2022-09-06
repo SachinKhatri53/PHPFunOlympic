@@ -128,6 +128,14 @@ function deleteNews(){
          $delete_news = mysqli_query($connection, $query);
      }
 }
+function deleteComments(){
+    global $connection;
+    if (isset($_GET['delete'])) {
+         $comment_id = $_GET['delete'];
+         $query = "DELETE FROM comments WHERE comment_id = {$comment_id}";
+         $delete_comment = mysqli_query($connection, $query);
+     }
+}
 function deleteFixtures(){
     global $connection;
     if (isset($_GET['delete'])) {
@@ -152,4 +160,35 @@ function editHighlight($vid, $title, $category_title, $description, $video_path,
             return true;
         }
     }
+    function editImage($pid, $caption, $category_title, $image_path, $upload_date, $upload_time){
+        global $connection;
+            $query = "UPDATE photos SET ";
+            $query .= "caption = '{$caption}', ";
+            $query .= "category_title = '{$category_title}', ";
+            $query .= "image_path = '{$image_path}', ";
+            $query .= "upload_date = '{$upload_date}', ";
+            $query .= "upload_time = '{$upload_time}'";
+            $query .= " WHERE pid = {$pid}";
+            $edit_photo = mysqli_query($connection, $query);
+            if($edit_photo){
+                return true;
+            }
+        }
+
+function changeStatusToInactive(){
+    global $connection;
+    if (isset($_GET['inactive'])) {
+        $uid = $_GET['inactive'];
+        $query = "UPDATE users SET status = 'inactive' WHERE uid = {$uid}";
+        mysqli_query($connection, $query);
+    }
+}
+function changeStatusToAactive(){
+    global $connection;
+    if (isset($_GET['active'])) {
+        $uid = $_GET['active'];
+        $query = "UPDATE users SET status = 'active' WHERE uid = {$uid}";
+        mysqli_query($connection, $query);
+    }
+}
 ?>

@@ -3,11 +3,11 @@
 <div class="col-md-3">
     <?php include "sidebar.php"?>
 </div>
-<div class="col-md-8">
+<div class="col-md-8" id="main-container">
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-bordered table-sm table-hover">
+                <table class="table table-bordered table-sm">
                     <h4>Users</h4>
                     <hr>
                     <thead>
@@ -16,11 +16,13 @@
                             <th>Email</th>
                             <th>Username</th>
                             <th>Status</th>
-                            <th colspan="3">Actions</th>
+                            <th colspan="2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php     
+                    <?php
+                    changeStatusToInactive();
+                    changeStatusToAactive();
                     $query = "SELECT * FROM users WHERE is_admin=0";
                     $select_users = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($select_users)) {
@@ -35,8 +37,13 @@
                     echo "<td>$email</td>";
                     echo "<td>$username</td>";
                     echo "<td>$status</td>";
-                    echo "<td><a href='comments.php?delete=$uid' class='btn btn-success btn-sm'>Active</a></td>";
-                    echo "<td><a href='comments.php?delete=$uid' class='btn btn-warning btn-sm'>Inactive</a></td>";
+                    if($status=='active'){
+                        echo "<td><a href='view_users.php?inactive=$uid' class='btn btn-warning btn-sm'>Inactive</a></td>";
+                    }
+                    else{
+                        echo "<td><a href='view_users.php?active=$uid' class='btn btn-success btn-sm'>Active</a></td>";
+                    }
+                    
                     echo "<td><a href='comments.php?delete=$uid' class='btn btn-danger btn-sm'>Reset Password</a></td>";
                     echo "</tr>";
                     }

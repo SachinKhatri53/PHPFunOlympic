@@ -11,13 +11,16 @@ function escape($string) {
     global $connection;
     return mysqli_real_escape_string($connection, trim($string));
 }
-function register_user($fullname, $phone, $email, $nationality, $username, $password){
+function register_user($fullname, $phone, $nationality, $email, $username, $password){
     global $connection;
     date_default_timezone_set("Asia/Kathmandu");
     $date=date('d-m-Y');
+    $status='active';
+    $is_admin=0;
+    $profile_pic = 'profile.png';
     $password = password_hash($password, PASSWORD_BCRYPT, array('cost'=>12));
-    $stmt = mysqli_prepare($connection, "INSERT INTO users(fullname, phone, email, profile_image nationality, username, password, registered_date, is_admin) VALUES(?,?,?,?,?,?,?,?) ");
-    mysqli_stmt_bind_param($stmt, 'ssssssss', $fullname, $phone, $email, 'profile.png', $nationality, $username, $password, $date, 0);
+    $stmt = mysqli_prepare($connection, "INSERT INTO users(fullname, phone, nationality, email, profile_image, username, password, status, registered_date, is_admin) VALUES(?,?,?,?,?,?,?,?,?,?) ");
+    mysqli_stmt_bind_param($stmt, 'ssssssssss', $fullname, $phone, $nationality, $email, $profile_pic, $username, $password, $status, $date, $is_admin);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     if($stmt){
@@ -82,7 +85,7 @@ function fetch_highlights(){
             $upload_date     = $row['upload_date'];
             echo "<div class='col-md-3'>
                     <div class='card-deck' style='margin-right:10px'>
-                        <a href='play_video.php?vid=$vid?>&title= $title'>
+                        <a href='play_video.php?vid=$vid&title=$title&type=highlight'>
                             <div class='card'>
                                 <div class='card-body'>
                                     <video controls height=200 width=250>
@@ -111,7 +114,7 @@ $video_url = $row['video_url'];
 $upload_date = $row['uploaded_date'];
 echo "<div class='col-md-3'>
         <div class='card-deck' style='margin-right:10px'>
-            <a href='play_video.php?lvid=$lvid?>&title= $title'>
+            <a href='play_video.php?vid=$lvid&title=$title&type=live'>
                 <div class='card'>
                     <div class='card-body'>
                         <iframe width='' height='' src='$video_url' autoplay>
@@ -229,22 +232,29 @@ function fetch_photos(){
         $upload_date    = $row['upload_date'];
         $upload_time    = $row['upload_time'];
 
-        echo "<div class='responsive' style='box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'>
-                <div class='gallery'>
-                    <a class='image' href='images/$image_path ' title='$caption'>
-                        <img src='images/$image_path' alt='$caption'>
-                    </a>
+        echo "
+        
+            <div class='image-column'>
+            <img src='images/$image_path' alt='$caption' data-toggle='modal' data-target='#imageModal'>
+            </div>
+        <div class='modal fade' id='imageModal' tabindex='-1' role='dialog' aria-labelledby='imageModalLabel'
+            aria-hidden='true'>
+            <div class='modal-dialog' role='document'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <h5 class='modal-title' id='imageModalLabel'>$caption</h5>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                        </button>
+
+                    </div>
+                    <div class='modal-body'>
+                        <img src='images/$image_path' alt='' style='width:100%; height:400px; object-fit:contain'>
+                    </div>
                 </div>
             </div>
-            <script>
-                $('.row').magnificPopup({
-                    delegate: '.image',
-                    type: 'image',
-                    gallery: {
-                        enabled: true
-                    }
-                });
-            </script>";
+        </div>
+        ";
     }
 }
 function fetch_photos_by_category($category_name){

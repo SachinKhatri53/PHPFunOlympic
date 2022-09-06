@@ -52,6 +52,12 @@ if(isset($_POST['comment'])){
 
     <div class="col-md-8">
         <?php
+        if($_GET['type']=='highlight'){
+            echo "<h1>Highlight</h1>";
+        }
+        else{
+            echo "<h1>Live</h1>";
+        }
                     $query = "SELECT * FROM videos WHERE vid = $vid";
                     $select_video = mysqli_query($connection, $query);  
             
@@ -98,8 +104,10 @@ if(isset($_POST['comment'])){
         <p style="text-align:justify; padding:10px 0"><?php echo $description ?></p>
 
         <?php } ?>
-
-        <?php update_view_count($views, $title) ?>
+        <?php
+        if($_GET['type']=='highlight'){
+            update_view_count($views, $title);
+        }  ?>
 <hr>
         <!-- comments -->
         <?php

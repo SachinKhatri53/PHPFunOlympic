@@ -1,7 +1,8 @@
 <?php include "header.php" ?>
-<div class="row">
+
+<div class="row" style="margin:80px 0">
     <div class="container">
-    <?php
+        <?php
                         $query = "SELECT * FROM users WHERE username='$username'";
                         $select_user = mysqli_query($connection, $query);
                         while($row = mysqli_fetch_assoc($select_user)) {
@@ -15,12 +16,13 @@
         <div class="row" style="padding:20px 0">
             <div class="col-md-4">
                 <div class="profile-img" style="">
-                    <img src="images/<?php echo $profile_image ?>" alt="" width=300 style="border-radius:10%; border:2px grey solid; padding:2px">
+                    <img src="images/<?php echo $profile_image ?>" alt="" width=300
+                        style="border-radius:10%; border:2px grey solid; padding:2px">
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="row">
-               
+
                     <h4><?php echo $fullname ?></h4>
                 </div>
                 <hr>
@@ -32,7 +34,7 @@
                         <div class="row">Nationality</div>
                     </div>
                     <div class="col-8">
-                        
+
                         <div class="row"><?php echo $username ?></div>
                         <div class="row"><?php echo $email ?></div>
                         <div class="row"><?php echo $phone ?></div>
@@ -48,4 +50,5 @@
             </div>
         </div>
     </div>
-    <?php include "footer.php" ?>
+</div>
+<?php include "footer.php" ?>

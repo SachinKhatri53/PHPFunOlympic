@@ -1,8 +1,7 @@
 <?php include "admin_header.php" ?>
 <link rel="stylesheet" href="../css/gallery.css">
 <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="../js/jquery.magnific-popup.min.js" type="text/javascript"></script>
+
 <style>
     .responsive {
 width: 20%;
@@ -32,7 +31,7 @@ width: 20%;
                             <img src='../images/$image_path' alt='$caption'>
                         </a>
                     </div>
-                    <a href='' style='color:blue; text-align:right' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a>
+                    <a href='edit_photo.php?edit=$pid' style='color:blue; text-align:right' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a>
                     <a href='view_photos.php?delete=$pid' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" style='text-align:right; color:Red' data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a>
                 </div>
                 <script>
@@ -44,9 +43,11 @@ width: 20%;
                         }
                     });
                 </script>";
+                
         }
         ?>
     </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="../js/jquery.magnific-popup.min.js" type="text/javascript"></script>
 <?php include "admin_footer.php" ?>

@@ -21,7 +21,7 @@
                 if(isset($_POST['btn-search'])){
                 $search = $_POST['search'];
                     
-                    $query = "SELECT * FROM videos where tags LIKE '%$search%'";
+                    $query = "SELECT * FROM videos where description LIKE '%$search%'";
                     $search_query = mysqli_query($connection, $query);
                     
                     if (!$search_query){

@@ -15,6 +15,7 @@ if(isset($_GET['category'])){
 </div>
 <?php include "category_filter.php" ?>
 <div class="row" style="padding:20px 50px">
+<div class='image-row'>
     <?php
     if(empty($category_name)){
         fetch_photos();
@@ -23,5 +24,6 @@ if(isset($_GET['category'])){
         fetch_photos_by_category($category_name);
     }
     ?>
+    </div>
 </div>
 <?php include "footer.php" ?>
