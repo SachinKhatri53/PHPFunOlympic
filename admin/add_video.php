@@ -1,3 +1,4 @@
+<title>Admin: Add New Video</title>
 <?php include "admin_header.php" ?>
 <?php
 $upload_date = date('d-m-Y');
@@ -75,6 +76,7 @@ if(isset($_POST['upload_video'])){
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select name="category_title" id="" class="form-control">
+                    <option value="">Select</option>
                         <?php
                         $select_query = "SELECT * FROM categories";
                         $select_categories = mysqli_query($connection, $select_query);

@@ -95,7 +95,12 @@ if(isset($_POST['update_video'])){
                         $select_categories = mysqli_query($connection, $select_query);
                         while($row = mysqli_fetch_assoc($select_categories)) {
                         $category_title     = $row['category_title'];
-                        echo "<option value='$category_title'>$category_title</option>";
+                        if ($db_video_category == $category_title){
+                            echo "<option selected value='{$category_title}'>{$category_title}</option>";
+                        }
+                        else {
+                        echo "<option value='{$category_title}'>{$category_title}</option>";                    
+                        }
                         }?>
                     </select>
                 </div>
@@ -109,7 +114,7 @@ if(isset($_POST['update_video'])){
 
                 <div class="form-group">
                     <label for="title">File</label>
-                    <video width="100%" height="380px" controls autoplay>
+                    <video width="100%" height="380px" controls>
                         <source src="../videos/<?php echo $db_video_path?>" type="video/mp4">
                     </video>
                     <input type="file" name="video" id="" class="form-control" value="<?php echo $db_video_path ?>">

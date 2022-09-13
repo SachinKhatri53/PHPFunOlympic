@@ -1,20 +1,10 @@
-body{
-    font-family: 'Secular One', sans-serif;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    position: relative;
-}
-.logo{
-    padding: 20px 10px;
-}
-.mr-auto .nav-item{
-    margin:0 35px !important;
-}
+
 .footer{
-    padding:20px 30px;
+    padding:10px 30px;
     background-color: #027541;
     color:aliceblue;
+    position :relative;
+    bottom:0;
 }
 .footer ul li{
     margin-right: 20px;
@@ -26,7 +16,8 @@ body{
 .navbar{
     background:#027541;
     width:100%;
-
+    font-size: 15px;
+    font-weight: bold;
 }
 .nav-item{
     border: 2px #027541 solid;
@@ -69,3 +60,46 @@ border: #030330 1px solid;
     background: aliceblue;
 border: #030330 1px solid;
 } */
+#left-fixed {
+    height: 70vh;
+    /* height: 77.5vh; */
+    position: fixed;
+    top: 80px;
+    left: .5%;
+    margin: 1em;
+    box-shadow: .75em .75em 1em rgb(186, 185, 185);
+    background-color:aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em 0;
+    z-index: 5;
+    border-radius:20px;
+}
+
+.fixtures {
+    height: 47%;
+    border-bottom: 2px solid Aliceblue;
+    margin-bottom: 10px;
+}
+.btn-filter-videos{
+    padding:4px 8px; background:#f2f2f2
+}
+.section-heading{
+    color:#009a49;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom-style:solid; border-color:#357960;
+    padding-top: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #left-fixed{
+      display: none;
+    }
+    .btn-filter-videos{
+        font-size:12px;
+        margin-bottom: 10px;
+    }
+  }

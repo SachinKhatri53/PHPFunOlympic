@@ -1,9 +1,12 @@
-<title>Admin: View All Highlights</title>
-<?php include "admin_header.php" ?>
-<?php 
+<?php
 if(isset($_GET['edit'])){
     $fid = $_GET['edit'];
 }
+?>
+<title>Admin: Edit Fixture - <?php echo $_GET['title'] ?></title>
+<?php include "admin_header.php" ?>
+<?php 
+
     $upload_date = date('d-m-Y');
     $upload_time = date("h:i:sa");
     $allowed = array('jpg', 'jpeg', 'png');
@@ -101,7 +104,12 @@ if(isset($_GET['edit'])){
                             $select_categories_query = mysqli_query($connection, $categories_query);
                             while($row = mysqli_fetch_assoc($select_categories_query)) {
                               $title     = $row['category_title'];
-                            echo "<option value='$title'>$title</option>";
+                              if ($db_fixture_category == $title){
+                                echo "<option selected value='{$title}'>{$title}</option>";
+                            }
+                            else {
+                            echo "<option value='{$title}'>{$title}</option>";                    
+                            }
                             }
                         ?>
                         </select>

@@ -68,6 +68,7 @@ if(isset($_POST['upload_photo'])){
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select name="category_title" id="" class="form-control">
+                    <option value="">Select</option>
                         <?php
                         $select_query = "SELECT * FROM categories";
                         $select_categories = mysqli_query($connection, $select_query);

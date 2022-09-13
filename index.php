@@ -14,6 +14,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     }
     login_user($username, $password);
 }
+include "login_modal.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,92 +26,160 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/de23b03d2b.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Rubik:wght@300;500&family=Secular+One&display=swap"
+        rel="stylesheet">
     <title>Homepage: Fun Olympic Games</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
-<body style="background-image: url(../images/background.png)">
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+        <a class="navbar-brand" href="index.php"><img src="images/logo.png" height="50" width="50" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.php">HOME</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="" data-toggle="modal" data-target="#loginModal">VIDEOS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="news.php?notlogged">NEWS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gallery.php?notlogged">GALLERY</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="fixtures.php?notlogged">FIXTURES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.php?notlogged">CONTACT</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <form class="form-inline" method="post" style="padding:10px">
+                        <input class="form-control form-control-sm" type="text" placeholder="email" name="username"
+                            value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : '' ?>">
+                        <input class="form-control form-control-sm" style="margin:0 6px" type="password" placeholder="password" name="password"
+                            value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : '' ?>">
+                        <input type="checkbox" name="remember"
+                            <?php if(isset($_COOKIE['username'])){echo "checked";} ?>>
+                        <small style='color:white; margin: 0 6px'>remember me</small>
+                        <button class="btn btn-submit btn-sm my-2 my-sm-0" type="submit">Login</button>
+
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="container-fluid">
-        <nav class="navbar navbar-light-content-between">
-            <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt=""></a>
-            <h4>Fun Olympic</h4>
-            <form class="form-inline" method="post" style="background:lightgrey; padding:10px">
-                <input class="form-control mr-sm-2" type="text" placeholder="email" name="username" value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : '' ?>">
-                <input class="form-control mr-sm-2" type="password" placeholder="password" name="password" value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : '' ?>">
-                <input class="form-control mr-sm-2" type="checkbox" name="remember" <?php if(isset($_COOKIE['username'])){echo "checked";} ?>>remember me
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
-                
-            </form>            
-        </nav>
-        <p class="text-right">Not registered yet?<a href="register.php">Register</a></p>
-        <!-- <video controls autoplay> <source src='videos/$video_path' type='video/mp4'> -->
+        <div class="row" style="margin-top:80px">
+            <div class="col-md-12">
+                <h6 class="text-right">Not registered yet?<a href="register.php">Register</a></h6>
+            </div>
+        </div>
+
         <div class="row">
-            <div class="col-9">
-                <div class="border" style="border:1px solid grey; padding:20px; margin:20px">
-                    <h6 class="text-center">Latest Videos</h6>
-                    <div class="row">
-                        <div class="card-deck">
-                            <?php  
-                        $query = "SELECT * FROM videos ORDER BY upload_date DESC LIMIT 3";
-                        $select_videos = mysqli_query($connection, $query);
-                        while($row = mysqli_fetch_assoc($select_videos)) {
-                            $vid                = $row['vid'];
-                            $title     = $row['title'];
-                            $video_path     = $row['video_path'];
-                            $upload_date     = $row['upload_date']; ?>
-
-                            <div class='card'>
-                                <video height=200 width=250 controls autoplay>
-                                    <source src='videos/<?php echo $video_path ?>' type='video/mp4'>
-                                    <h5 class=''><?php $title ?></h5>
-                                    <p class=''><small class='text-muted'>Uploaded on:
-                                            <?php echo $upload_date ?></small></p>
-
-                            </div>;
-                            <?php } ?>
-                        </div>
-
+            <div class="col-md-9">
+                <!-------------------------------------------------- Live Videos -------------------------------------------------->
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="section-heading">Live Videos</p>
                     </div>
-                    <div class="text-right">
-                        <a class="btn btn-primary">Explore</a>
+                    <div class="col-md-6">
+                        <p class="text-right" style="padding-top: 20px;"><a href="" data-toggle="modal" data-target="#loginModal">view all <i class="fa-solid fa-arrow-right"></i></a></p>
                     </div>
                 </div>
-                <div class="border" style="border:1px solid grey; padding:20px; margin:20px">
-                    <h6 class="text-center">Live Videos</h6>
-                    <div class="row">
+                <div class="row live-videos">
+                    <div class="live-content">
+
                         <div class="card-deck">
-                            <?php  
-                        $query = "SELECT * FROM live_videos ORDER BY uploaded_date DESC LIMIT 3";
-                        $select_live_videos = mysqli_query($connection, $query);
-                        while($row = mysqli_fetch_assoc($select_live_videos)) {
-                            $lvid                = $row['lvid'];
-                            $video_title     = $row['video_title'];
-                            $video_description     = $row['video_description'];
-                            $video_url     = $row['video_url'];
-                            $video_category     = $row['video_category']; 
-                            $uploaded_date     = $row['uploaded_date'];       
-                            $uploaded_time     = $row['uploaded_time']; 
-                            echo "<div class='card'>
-                            <iframe width='' height='' src='$video_url' autoplay>
-                                </iframe>
-                                <div class='card-body'>
-                                    <h5 class='card-title'>$video_title</h5>
-                                    <p class='card-text'><small class='text-muted'>Uploaded on: $uploaded_date</small></p>
-                                </div>
-                            </div>";
-                            } ?>
+                            <?php     
+                           $query = "SELECT * FROM live_videos ORDER BY uploaded_date DESC LIMIT 3";
+                           $select_videos = mysqli_query($connection, $query);
+                           while($row = mysqli_fetch_assoc($select_videos)) {
+                               $lvid                = $row['lvid'];
+                               $title     = $row['video_title'];
+                               $video_url     = $row['video_url'];
+                               $upload_date     = $row['uploaded_date']; ?>
+
+                            <div class="card">
+
+                                <iframe src="<?php echo $video_url ?>"></iframe>
+                                <a href="" data-toggle="modal" data-target="#loginModal">
+                                    <div class="card-body">
+                                        <h5 class="card-title"
+                                            style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
+                                        -webkit-box-orient: vertical; box-orient: vertical; -webkit-line-clamp: 2; ine-clamp: 2; ">
+                                            <?php echo $title ?></h5>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <?php }?>
                         </div>
+
                     </div>
-                    <div class="text-right">
-                        <a class="btn btn-primary">Explore</a>
+
+                </div>
+                <!-------------------------------------------------- Videos -------------------------------------------------->
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="section-heading">Uploaded Videos</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right" style="padding-top: 20px"><a href="" data-toggle="modal" data-target="#loginModal">view all <i class="fa-solid fa-arrow-right"></i></a></p>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:20px">
+                    <div class="card-deck">
+                        <?php  
+             $query = "SELECT * FROM videos ORDER BY upload_date DESC LIMIT 3";
+             $select_videos = mysqli_query($connection, $query);
+             while($row = mysqli_fetch_assoc($select_videos)) {
+                 $vid                = $row['vid'];
+                 $title     = $row['title'];
+                 $video_path     = $row['video_path'];
+                 $upload_date     = $row['upload_date'];
+                ?>
+
+                        <div class="card">
+                            <video width="100%" controls>
+                                <source src="videos/<?php echo $video_path ?>" type="video/mp4">
+                            </video>
+                            <div class="card-body">
+                                <a href="" data-toggle="modal" data-target="#loginModal">
+                                    <h5 class="card-title"
+                                        style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
+                                    -webkit-box-orient: vertical; box-orient: vertical; -webkit-line-clamp: 2; ine-clamp: 2; ">
+                                        <?php echo $title ?></h5>
+                                </a>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                            </div>
+                        </div>
+
+                        <?php } ?>
                     </div>
                 </div>
 
             </div>
-            <div class="col-2">
-                <h6 class="text-center">Headlines</h6>
+            <!-------------------------------------------------- Headlines -------------------------------------------------->
+            <div class="col-md-3">
+            <p class="section-heading">Headlines</p>
                 <?php  
-                    $query = "SELECT * FROM news LIMIT 6";
+                    $query = "SELECT * FROM news LIMIT 5";
                     $select_news = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($select_news)) {
                         $nid                = $row['nid'];
@@ -120,43 +189,43 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                         $news_thumbnail     = $row['news_thumbnail']; 
                         $uploaded_date     = $row['uploaded_date'];       
                         $uploaded_time     = $row['uploaded_time']; 
-                echo "<a href='$nid'>
-                    <div class='row'>
+                echo "<div class='row'>
                         <div class='col-2'>
                             <img src='images/$news_thumbnail' height='40' width='40'>
                         </div>
                         <div class='col-1'></div>
                         <div class='col-8'>
                         <div class='row'>
-                            <small>$news_title</small>
+                        <a href='read_news.php?nid=$nid&title=$news_title'>
+                            <h6 style='color:#357960'>$news_title</h6>
+                            </a>
                             </div>
                             <div class='row'>
-                            <small style='text-right'>$uploaded_date</small>
+                            <small>$uploaded_date</small>
                             </div>
                         </div>
                     </div>
-                    </a><hr>";
+                    <hr>";
                 }?>
-                <a href="" class="btn btn-primary">Read More</a>
+                <a href="news.php?notlogged" class="btn btn-primary btn-sm btn-block">Read More</a>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        <footer>
-            <div class="row">
-                <div class="col-4 text-left">
-                    <ul class="list-inline">
-                        <li style="float: left;"><a href=""><i class="fa-brands fa-square-facebook"></i></a></li>
-                        <li style="float: left;"><a href=""><i class="fa-brands fa-square-twitter"></i></a></li>
-                        <li style="float: left;"><a href=""><i class="fa-brands fa-tiktok"></i></a></li>
-                        <li style="float: left;"><a href=""><i class="fa-brands fa-youtube"></i></a></li>
-                    </ul>
-                </div>
-                <div class="col-4 text-center">&#169; 2022 Copyright: Fun Olympic</div>
-                <div class="col-4 text-right">Desgined by: Sachin Khatri</div>
+        <div class="row footer">
+            <div class="col-4 text-left">
+                <ul class="list-inline">
+                    <li style="float: left;"><a href=""><i class="fa-brands fa-square-facebook"></i></a></li>
+                    <li style="float: left;"><a href=""><i class="fa-brands fa-square-twitter"></i></a></li>
+                    <li style="float: left;"><a href=""><i class="fa-brands fa-tiktok"></i></a></li>
+                    <li style="float: left;"><a href=""><i class="fa-brands fa-youtube"></i></a></li>
+                </ul>
             </div>
-        </footer>
+            <div class="col-4 text-center">&#169; 2022 Copyright: Fun Olympic</div>
+            <div class="col-4 text-right">Desgined by: Sachin Khatri</div>
+        </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -87,7 +87,12 @@ if(isset($_GET['edit'])){
                         $select_categories = mysqli_query($connection, $select_query);
                         while($row = mysqli_fetch_assoc($select_categories)) {
                         $category_title     = $row['category_title'];
-                        echo "<option value='$category_title'>$category_title</option>";
+                        if ($db_category_title == $category_title){
+                            echo "<option selected value='{$category_title}'>{$category_title}</option>";
+                        }
+                        else {
+                        echo "<option value='{$category_title}'>{$category_title}</option>";                    
+                        }
                         }?>
                     </select>
                 </div>

@@ -1,0 +1,52 @@
+body{
+    font-family: 'Josefin Sans', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+.logo{
+    padding: 20px 10px;
+}
+.mr-auto .nav-item{
+    margin:0 8px !important;
+}
+.navbar{
+    background:#027541;
+    width:100%;
+    font-size: 12px;
+    font-weight: bold;
+}
+.nav-item{
+    border: 2px #027541 solid;
+}
+.nav-link{
+    color:aliceblue !important;
+}
+.btn-submit{
+    color:white;
+    background-color: #007bff;
+}
+.btn-submit:hover{
+    color:#357960;
+    background-color: white;
+}
+.section-heading{
+    color:#009a49;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom-style:solid; border-color:#357960;
+    padding-top: 20px;
+}
+.footer{
+    padding:20px 30px;
+    background-color: #027541;
+    color:aliceblue;
+}
+.footer ul li{
+    margin-right: 20px;
+}
+.footer ul li i{
+    font-size: 2em;
+    color:aliceblue;
+}

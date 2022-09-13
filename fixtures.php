@@ -2,6 +2,9 @@
 if(isset($_GET['category'])){
     $category_name = $_GET['category'];
 }
+if(isset($_GET['nationality'])){
+    $country_name = $_GET['nationality'];
+}
 ?>
 <?php include "header.php" ?>
 <style>
@@ -22,8 +25,16 @@ if(isset($_GET['category'])){
             if(empty($category_name)){
                 fetch_fixtures();
             }
+            
             else{
-                fixtures_by_category($category_name);
+                if(isset($_GET['category'])){
+                    fixtures_by_category($category_name);
+                }
+                else{
+                    fixtures_by_country($country_name);
+                }
+                
+                // fixtures_by_category($category_name);
             }
              ?>
         </div>

@@ -79,6 +79,7 @@ if(empty($fixture_error)){
                     <div class="form-group">
                         <label for="fixture_category">Category</label>
                         <select name="fixture_category" id="" class="form-control">
+                            <option value="">Select</option>
                             <?php
                             $categories_query = "SELECT * FROM categories";
                             $select_categories_query = mysqli_query($connection, $categories_query);

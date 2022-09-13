@@ -83,6 +83,7 @@ if(empty($news_error)){
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select name="news_category" id="" class="form-control">
+                        <option value="">Select</option>
                             <?php
                             $categories_query = "SELECT * FROM categories";
                             $select_categories_query = mysqli_query($connection, $categories_query);

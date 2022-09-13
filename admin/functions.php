@@ -174,7 +174,24 @@ function editHighlight($vid, $title, $category_title, $description, $video_path,
                 return true;
             }
         }
+function edit_news($nid, $news_title, $news_description, $news_thumbnail, $news_category, $uploaded_date, $uploaded_time){
+    global $connection;
+    $query = "UPDATE news SET ";
+    $query .= "news_title = '{$caption}', ";
+    $query .= "news_description = '{$news_description}', ";
+    $query .= "news_thumbnail = '{$news_thumbnail}', ";
+    $query .= "news_category = '{$news_catgory}'";
+    $query .= "uploaded_date = '{$uploaded_date}', ";
+    $query .= "uploaded_time = '{$uploaded_time}'";
+    $query .= " WHERE nid = {$nid}";
+    $edit_news = mysqli_query($connection, $query);
+    if($edit_news){
+        return true;
+    }
+}
+function edit_fixture(){
 
+}
 function changeStatusToInactive(){
     global $connection;
     if (isset($_GET['inactive'])) {

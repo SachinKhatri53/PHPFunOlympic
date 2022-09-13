@@ -11,6 +11,7 @@ function escape($string) {
     global $connection;
     return mysqli_real_escape_string($connection, trim($string));
 }
+
 function register_user($fullname, $phone, $nationality, $email, $username, $password){
     global $connection;
     date_default_timezone_set("Asia/Kathmandu");
@@ -67,9 +68,9 @@ function add_comment($uid, $vid, $content, $date, $time){
     }
 }
 
-function update_view_count($views, $video_title){
+function update_view_count($views, $vid){
     global $connection;
-    $query = "UPDATE video_statistics SET views = $views+1 WHERE video_title = '$video_title'";
+    $query = "UPDATE videos SET views = $views+1 WHERE vid = '$vid'";
     $update_views = mysqli_query($connection, $query);
 }
 
@@ -220,6 +221,35 @@ function fixtures_by_category($category_name){
             </div>";
     }
 }
+function fixtures_by_country($country_name){
+    global $connection;
+    $query = "SELECT * FROM fixtures WHERE fixture_countries LIKE '%$country_name%'";
+    $select_fixtures = mysqli_query($connection, $query);
+    while($row = mysqli_fetch_assoc($select_fixtures)) {
+        
+        $fid               = $row['fid'];
+        $fixture_title     = $row['fixture_title'];
+        $fixture_category  = $row['fixture_category']; 
+        $fixture_countries = $row['fixture_countries']; 
+        $fixture_date      = $row['fixture_date'];       
+        $fixture_time      = $row['fixture_time'];
+        echo "<div class='col-md-3' style='margin-bottom:50px'>
+                <div class='card border-success'>
+                    <div class='card-header'>
+                        <small class='text-muted'>Date:$fixture_date
+                            <br>Time:$fixture_time</small>
+                    </div>
+                    <div class='card-body'>
+                        <h5 class='card-title' style='text-align:center'>$fixture_title</h5>
+                        <small class='text-right'>$fixture_category</small>
+                    </div>
+                    <div class='card-footer'>
+                        <small class='text-muted'>Countries:$fixture_countries</small>
+                    </div>
+                </div>
+            </div>";
+    }
+}
 function fetch_photos(){
     global $connection;
     $sql = "SELECT * FROM photos";
@@ -292,5 +322,27 @@ function commentsCount($table, $id){
     $query = "SELECT * FROM " . $table . " WHERE vid=" . $id;
     $select_from_table = mysqli_query($connection, $query);
     $result = mysqli_num_rows($select_from_table);
+    return $result;
+}
+function add_to_favorite($uid, $vid){
+    global $connection;
+    $stmt = mysqli_prepare($connection, "INSERT INTO favorite_videos(uid, vid) VALUES(?,?) ");
+    mysqli_stmt_bind_param($stmt, 'ss', $uid, $vid);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    if($stmt){
+        return true;
+    }
+}
+function remove_from_favorite($uid, $vid){
+    global $connection;
+    $query = "DELETE FROM favorite_videos WHERE uid = $uid AND vid = $vid";
+    mysqli_query($connection, $query);
+}
+function is_favorite_video($uid, $vid){
+    global $connection;
+    $query = "SELECT * FROM favorite_videos WHERE uid = $uid AND vid = $vid";
+    $select_query = mysqli_query($connection, $query);
+    $result = mysqli_num_rows($select_query);
     return $result;
 }
