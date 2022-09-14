@@ -49,11 +49,6 @@ if(isset($_POST['undo-favorite'])){
     border-radius: 16px;
 }
 
-.fa-thumbs-down,
-.fa-thumbs-o-down {
-    transform: rotateY(180deg);
-    color: red;
-}
 </style>
 <div class="row" style="margin:90px 0 10px 0">
     <div class="col-md-3"></div>
