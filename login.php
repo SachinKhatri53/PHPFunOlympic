@@ -6,8 +6,13 @@ $strongRegex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username    = escape($_POST['username']);
 	$password = escape($_POST['password']);
-    $remember = escape($_POST['remember']);
-    
+    if(empty($_POST['remember'])){
+        $remember = '';
+    }
+    else{
+        $remember = escape($_POST['remember']);
+    }
+
 	$error = [
 		'password'=> '',
 		'username'=>'',
@@ -15,19 +20,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	];
 	
 	if($username == ''){
-		$error['username'] = 'Username cannot be empty.';
+		$error['username'] = 'Username / Email cannot be empty.';
 	}
-	// if(username_exists($username)){
-	// 	$error['username'] = $username . ' already exists. Try another one.';
-	// }
+	if(!empty($username) && !username_exists($username)){
+		$error['username'] = $username . " does not exist";
+	}
 
-	// if(email_exists($email)){
-	// 	$error['email'] = $email . " already exists. If it's you, <a href='signin.php'>Login</a>";
-	// }
+	if( !empty($username) && !email_exists($username)){
+		$error['username'] = $username . " does not exist";
+	}
 	if($password == ''){
 		$error['password'] = 'Password cannot be empty.';
 	}
-
+    if(notVerifiedUser($username)){
+        $error['username'] = 'User has not been verified';
+    }
+    if(!empty($username) && !notVerifiedUser($username) && (username_exists($username) || email_exists($username)) && !login_user($username, $password)){
+            $error['username'] = 'Check your username and passsword';
+    }
+    if(!empty($remember)){
+        setcookie('username', $_POST['username'], time()+86400);
+        setcookie('password', $_POST['password'], time()+86400);
+    }
+    if(empty($remember)){
+        setcookie('username', '', time()-86400);
+        setcookie('password', '', time()-86400);
+    }
 	foreach ($error as $key => $value){
 		if(empty($value)){
 			unset($error[$key]);
@@ -35,17 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	if(empty($error)){
-        if(!empty($remember)){
-            setcookie('username', $_POST['username'], time()+86400);
-            setcookie('password', $_POST['password'], time()+86400);
-        }
-        else if(empty($remember)){
-            setcookie('username', '', time()-86400);
-            setcookie('password', '', time()-86400);
-        }
-		if(!login_user($username, $password)){
-            $inactive = "You account is inactive";
-        }
+        
+        
+        login_user($username, $password);
+            
 	}
 }
 
@@ -78,7 +89,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <h1></h1>
                     <form action="" method="post">
                         <h2>Login Page</h2>
-                        <h6 class='text-danger'><?php echo isset($inactive)?$inactive : '' ?></h5>
+                        <h6 class='text-danger'>
+                            <?php
+                            if(isset($_GET['error_login'])){
+                                echo "Login failed. Please try again.";
+                            }    
+                            ?>
+                        </h6>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -101,9 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <i class="fa fa-lock"></i>
                                     </span>
                                 </div>
-                                <input type="password" class="form-control" id="password" name="password"
+                                <input type="password" class="form-control" id="password" name="password" onkeyup="showEye()"
                                     placeholder="Password" autocomplete="off"
                                     value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : '' ?>">
+                                    <span class="input-group-text" id="show_pass" style="cursor: pointer;display:none"
+                        onclick="togglePassword()">
+                        <i class="fa-regular fa-eye-slash" id="eye_password"></i>
+                    </span>
                             </div>
                             <p class="text-danger" style="font-size:12px">
                                 <?php echo isset($error['password']) ? $error['password'] : '' ?></p>
@@ -117,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="form-group">
                     <input type="submit" name="signin" class="btn btn-primary btn-block" id="btn-submit"
-                        value="Sign Up">
+                        value="Login">
                     <div class="text-center" style="background:#e9ecef">Don't have an account? <a
                             href="register.php">Register</a></div>
                 </div>
@@ -127,8 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     </div>
-    <script src="js/script.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="js/login.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

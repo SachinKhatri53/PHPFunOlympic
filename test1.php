@@ -215,47 +215,100 @@ $result = mysqli_query($connection, $sql);
     <div class="container-fluid">
         <!-- Search -->
         <div class="row" style="margin:90px 0 10px 0">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <input type="search" name="" id="" class="form-control" placeholder="Search">
-                    <button type="button" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form action="search.php" method="post">
+                    <div class="input-group">
+                        <input type="search" required name="search" id="" class="form-control" placeholder="Search"
+                            autocomplete="on">
+                        <button type="submit" name="btn-search" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-               
-                    <?php
+
+                <?php
                         while($row = mysqli_fetch_assoc($result)) {
                             $vid= $row['vid'];
                         ?>
-                    <video width="100%" height="480px" controls autoplay>
-                        <source src="videos/<?php echo $row['video_path']?>" type="video/mp4">
-                    </video>
-                    <h5 style="padding-top:10px" class="text-center"><?php echo $row['title'];  ?></h5>
-        <hr>
-        <div class="row">
-                    <!-- if user likes post, style button differently -->
-                    <i <?php if (userLiked($row['vid'])): ?> class="fa fa-thumbs-up like-btn" <?php else: ?>
-                        class="fa fa-thumbs-o-up like-btn" <?php endif ?> data-id="<?php echo $row['vid'] ?>"></i>
-                    <span class="likes"><?php echo getLikes($row['vid']); ?></span>
-
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-
-                    <!-- if user dislikes post, style button differently -->
-                    <i <?php if (userDisliked($row['vid'])): ?> class="fa fa-thumbs-down dislike-btn" <?php else: ?>
-                        class="fa fa-thumbs-o-down dislike-btn" <?php endif ?> data-id="<?php echo $row['vid'] ?>"></i>
-                    <span class="dislikes"><?php echo getDislikes($row['vid']); ?></span>
-                    </div>
-                    <?php } ?>
-               
+                <video width="100%" height="480px" controls autoplay>
+                    <source src="videos/<?php echo $row['video_path']?>" type="video/mp4">
+                </video>
+                <h5 style="padding-top:10px" class="text-center"><?php echo $row['title'];  ?></h5>
                 <hr>
-            <!-- comments -->
-            <?php
+                <div class="row">
+
+
+
+
+
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+
+                                    <div class="col-6">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <!-- if user likes post, style button differently -->
+                                        <i <?php if (userLiked($row['vid'])): ?> class="fa fa-thumbs-up like-btn"
+                                            <?php else: ?> class="fa fa-thumbs-o-up like-btn" <?php endif ?>
+                                            data-id="<?php echo $row['vid'] ?>"></i>
+                                        <span class="likes"><?php echo getLikes($row['vid']); ?></span>
+
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        <!-- if user dislikes post, style button differently -->
+                                        <i <?php if (userDisliked($row['vid'])): ?>
+                                            class="fa fa-thumbs-down dislike-btn" <?php else: ?>
+                                            class="fa fa-thumbs-o-down dislike-btn" <?php endif ?>
+                                            data-id="<?php echo $row['vid'] ?>"></i>
+                                        <span class="dislikes"><?php echo getDislikes($row['vid']); ?></span>
+                                    </div>
+                                    <div class="col-3">
+                                        <i class="fa fa-eye" aria-hidden="true"></i> <?php echo $row['views']?>
+                                    </div>
+                                    <div class="col-3">
+                                        <a href=""><i class="fa fa-share-square-o" aria-hidden="true"></i> share</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <?php
+                        if(is_favorite_video($uid,$vid)==0){
+                            echo "<form action='' method='post'>
+                                    <button type='submit' name='favorite' class='btn btn-sm btn-outline-success'>Add to Favourite</button>
+                                </form>";
+                        }
+                        else{
+                            echo "<form action='' method='post'>
+                                    <button type='submit' name='undo-favorite' class='btn btn-sm btn-success'>Unsave</button>
+                                </form>";
+                        }
+                        ?>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="text-right" style="font-size:15px">Uploaded on: <?php echo $row['upload_date'] ?></p>
+                    </div>
+
+
+
+
+
+                </div>
+                <?php } ?>
+
+                <hr>
+                <!-- comments -->
+                <?php
                     if(commentsCount('comments', $vid) < 2){
                         echo "<h6>" . commentsCount('comments', $vid) . " comment</h6>";
                     }
@@ -276,7 +329,7 @@ $result = mysqli_query($connection, $sql);
                     </form>
                 </div>
 
-                    <?php
+                <?php
                     $query = "SELECT * FROM comments WHERE vid = $vid";
                     $select_comments = mysqli_query($connection, $query);  
             
@@ -286,7 +339,7 @@ $result = mysqli_query($connection, $sql);
                         $date = $row['date'];
                         ?>
 
-                    <?php
+                <?php
                     $query = "SELECT * FROM users WHERE uid = $uid";
                     $select_user = mysqli_query($connection, $query);  
             
@@ -297,7 +350,7 @@ $result = mysqli_query($connection, $sql);
                         <img src='images/$profile_image' alt='' height=50 width=50 style='border-radius:16px;'>                    
                         $content</div><br>";
                         } }?>
-               
+
 
 
             </div>

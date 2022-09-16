@@ -12,6 +12,10 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         setcookie('username', '', time()-86400);
         setcookie('password', '', time()-86400);
     }
+    if(!login_user($username, $password)){
+        
+        header('Location: login.php?error_login');
+    }
     login_user($username, $password);
 }
 include "login_modal.php";
@@ -69,10 +73,14 @@ include "login_modal.php";
                 <li class="nav-item">
                     <form class="form-inline" method="post" style="padding:10px">
                         <input class="form-control form-control-sm" type="text" placeholder="email" name="username"
-                            value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : '' ?>">
-                        <input class="form-control form-control-sm" style="margin:0 6px" type="password" placeholder="password" name="password"
-                            value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : '' ?>">
-                        <input type="checkbox" name="remember"
+                            value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : '' ?>" required>
+                        <input class="form-control form-control-sm" id="password"  type="password" style="margin:0 6px;" placeholder="password" name="password"
+                            value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : '' ?>" required onkeyup="showEye()">
+                            <span id="show_pass" style="cursor: pointer; display:none;"
+                        onclick="togglePassword()">
+                        <i class="fa-regular fa-eye-slash" id="eye_password" style="margin-left:-30px"></i>
+                    </span>
+                            <input type="checkbox" name="remember"
                             <?php if(isset($_COOKIE['username'])){echo "checked";} ?>>
                         <small style='color:white; margin: 0 6px'>remember me</small>
                         <button class="btn btn-submit btn-sm my-2 my-sm-0" type="submit">Login</button>
@@ -80,6 +88,7 @@ include "login_modal.php";
                     </form>
                 </li>
             </ul>
+            
         </div>
     </nav>
     <div class="container-fluid">
@@ -223,6 +232,8 @@ include "login_modal.php";
             <div class="col-4 text-right">Desgined by: Sachin Khatri</div>
         </div>
     </div>
+    <script src="js/login.js">
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>

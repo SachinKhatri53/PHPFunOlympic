@@ -2,8 +2,9 @@
     background: #f8f9fa;
     height:100%;
     position: fixed;
-    top:12%;
+    /*top:12%;
     width:18%;
+    overflow: scroll; */
 }
 ul li {
     list-style: none;

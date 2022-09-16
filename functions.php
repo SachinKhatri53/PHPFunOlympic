@@ -11,7 +11,47 @@ function escape($string) {
     global $connection;
     return mysqli_real_escape_string($connection, trim($string));
 }
+//confirms if the SQL query is running
+function confirm_Query($result) {
+    global $connection;
+    if (!$result){
+        die ('Query Failed' . mysqli_error($connection));
+    }
+}
 
+//checks if the user already exists during registration
+function username_exists($username){
+    global $connection;
+    $query = "SELECT username FROM users WHERE username = '$username'";
+    $result = mysqli_query($connection, $query);
+    confirm_Query($result);
+    $row = mysqli_num_rows($result);
+    
+    if ($row > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+//checks if the email already exists during registration
+function email_exists($email){
+    global $connection;
+    $query = "SELECT email FROM users WHERE email = '$email'";
+    $result = mysqli_query($connection, $query);
+    confirm_Query($result);
+    $row = mysqli_num_rows($result);
+    
+    if ($row > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+//registers new user
 function register_user($fullname, $phone, $nationality, $email, $username, $password){
     global $connection;
     date_default_timezone_set("Asia/Kathmandu");
@@ -28,7 +68,21 @@ function register_user($fullname, $phone, $nationality, $email, $username, $pass
         return true;
     }
 }
-
+//checks if the registered user is verified or not
+function notVerifiedUser($username){
+    global $connection;
+    $username = escape(trim($username));
+    $query = "SELECT * FROM users WHERE (username = '{$username}' OR email = '{$username}' ) AND status = 'inactive'";
+    $select_user = mysqli_query($connection, $query);
+    confirm_Query($select_user);
+    $row = mysqli_num_rows($select_user);
+    if ($row > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 function login_user($username, $password){
     global $connection;
     
@@ -52,9 +106,9 @@ function login_user($username, $password){
         else{
             redirect("admin/index.php");
         }
-        
         }
     }
+    
 }
 
 function add_comment($uid, $vid, $content, $date, $time){
@@ -345,4 +399,18 @@ function is_favorite_video($uid, $vid){
     $select_query = mysqli_query($connection, $query);
     $result = mysqli_num_rows($select_query);
     return $result;
+}
+
+
+//play live video in play_video.php
+
+function play_live_video(){
+
+}
+
+//play uploaded video in play_video.php
+
+function play_uploaded_video(){
+    
+                
 }

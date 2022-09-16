@@ -40,21 +40,21 @@
                  $video_path     = $row['video_path'];
                  $upload_date     = $row['upload_date'];
                 ?>
-<div class="col-md-4" style="margin-bottom:20px">
-        <div class="card">
-            <video width="100%" controls>
-                <source src="videos/<?php echo $video_path ?>" type="video/mp4">
-            </video>
-            <div class="card-footer">
-            <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
-                    <h5 class="card-title"
-                        style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
+        <div class="col-md-4" style="margin-bottom:20px">
+            <div class="card">
+                <video width="100%" controls>
+                    <source src="videos/<?php echo $video_path ?>" type="video/mp4">
+                </video>
+                <div class="card-footer">
+                    <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
+                        <h5 class="card-title"
+                            style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
                                     -webkit-box-orient: vertical; box-orient: vertical; -webkit-line-clamp: 2; ine-clamp: 2; ">
-                        <?php echo $title ?></h5>
-                </a>
-                <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                            <?php echo $title ?></h5>
+                    </a>
+                    <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                </div>
             </div>
-        </div>
         </div>
         <?php } ?>
     </div>
@@ -83,22 +83,22 @@
                  $video_path     = $row['video_path'];
                  $upload_date     = $row['upload_date'];
                 ?>
-<div class="col-md-4" style="margin-bottom:20px">
-        <div class="card">
-            <video width="100%" controls>
-                <source src="videos/<?php echo $video_path ?>" type="video/mp4">
-            </video>
-            <div class="card-footer">
-            <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
-                    <h5 class="card-title"
-                        style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
+        <div class="col-md-4" style="margin-bottom:20px">
+            <div class="card">
+                <video width="100%" controls>
+                    <source src="videos/<?php echo $video_path ?>" type="video/mp4">
+                </video>
+                <div class="card-footer">
+                    <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
+                        <h5 class="card-title"
+                            style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
                                     -webkit-box-orient: vertical; box-orient: vertical; -webkit-line-clamp: 2; ine-clamp: 2; ">
-                        <?php echo $title ?></h5>
-                </a>
-                <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                            <?php echo $title ?></h5>
+                    </a>
+                    <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                </div>
             </div>
         </div>
-             </div>
         <?php } ?>
     </div>
 </div>
@@ -125,22 +125,22 @@
                  $video_path     = $row['video_path'];
                  $upload_date     = $row['upload_date'];
                 ?>
-<div class="col-md-4" style="margin-bottom:20px">
-        <div class="card">
-            <video width="100%" controls>
-                <source src="videos/<?php echo $video_path ?>" type="video/mp4">
-            </video>
-            <div class="card-footer">
-            <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
-                    <h5 class="card-title"
-                        style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
+        <div class="col-md-4" style="margin-bottom:20px">
+            <div class="card">
+                <video width="100%" controls>
+                    <source src="videos/<?php echo $video_path ?>" type="video/mp4">
+                </video>
+                <div class="card-footer">
+                    <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
+                        <h5 class="card-title"
+                            style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
                                     -webkit-box-orient: vertical; box-orient: vertical; -webkit-line-clamp: 2; ine-clamp: 2; ">
-                        <?php echo $title ?></h5>
-                </a>
-                <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                            <?php echo $title ?></h5>
+                    </a>
+                    <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                </div>
             </div>
         </div>
-             </div>
         <?php } ?>
     </div>
 </div>
@@ -168,22 +168,22 @@
                  $video_path     = $row['video_path'];
                  $upload_date     = $row['upload_date'];
                 ?>
-<div class="col-md-4" style="margin-bottom:20px">
-        <div class="card">
-            <video width="100%" controls>
-                <source src="videos/<?php echo $video_path ?>" type="video/mp4">
-            </video>
-            <div class="card-footer">
-            <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
-                    <h5 class="card-title"
-                        style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
+        <div class="col-md-4" style="margin-bottom:20px">
+            <div class="card">
+                <video width="100%" controls>
+                    <source src="videos/<?php echo $video_path ?>" type="video/mp4">
+                </video>
+                <div class="card-footer">
+                    <a href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
+                        <h5 class="card-title"
+                            style="overflow: hidden; display: -webkit-box; -moz-box-orient: vertical;
                                     -webkit-box-orient: vertical; box-orient: vertical; -webkit-line-clamp: 2; ine-clamp: 2; ">
-                        <?php echo $title ?></h5>
-                </a>
-                <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                            <?php echo $title ?></h5>
+                    </a>
+                    <small class="text-muted">Uploaded: <?php echo $upload_date  ?> </small>
+                </div>
             </div>
         </div>
-             </div>
         <?php } ?>
     </div>
 </div>

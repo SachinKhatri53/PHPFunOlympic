@@ -10,6 +10,7 @@ if(isset($_POST['upload_video'])){
     $category_title = escape($_POST['category_title']);
     $description = escape($_POST['description']);
     $tags = escape($_POST['tags']);
+    
     $video_path        = escape($_FILES['video']['name']);
     $video_path_temp   = escape($_FILES['video']['tmp_name']);
     
