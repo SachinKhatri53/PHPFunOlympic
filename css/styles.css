@@ -34,13 +34,13 @@
 
 .btn-contact{
     color: aliceblue;
-    background-color: #030330;
+    background-color: #027541;
     padding:10px 50px;
 }
 .btn-contact:hover{
     color:#030330;
     background: aliceblue;
-    border: #030330 1px solid;
+    border: #027541 1px solid;
 }
 .btn-filter{
     color:aliceblue;

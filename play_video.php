@@ -1,4 +1,6 @@
-<?php 
+<?php
+$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
 include "functions.php";
 // connectionect to database
 
@@ -267,7 +269,9 @@ $time = date("h:i:sa");
                                         <i class="fa fa-eye" aria-hidden="true"></i> <?php echo $row['views']?>
                                     </div>
                                     <div class="col-3">
-                                        <a href=""><i class="fa fa-share-square-o" aria-hidden="true"></i> share</a>
+                                        <span style="cursor:pointer" data-toggle="modal" data-target="#shareModal">
+                                            <i class="fa fa-share-square-o" aria-hidden="true"></i> share
+                                            </span>
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +340,9 @@ $time = date("h:i:sa");
                                         <span class="dislikes"><?php echo getDislikes($row['lvid']); ?></span>
                                     </div>
                                     <div class="col-3">
-                                        <a href=""><i class="fa fa-share-square-o" aria-hidden="true"></i> share</a>
+                                        <span data-toggle="modal" data-target="#shareModal" style="cursor:pointer">
+                                            <i class="fa fa-share-square-o" aria-hidden="true"></i> share
+                                            </span>
                                     </div>
                                 </div>
                             </div>
@@ -431,6 +437,7 @@ if(isset($_POST['comment'])){
                                                       -webkit-box-orient: vertical; box-orient: vertical; -webkit-line-clamp: 2; ine-clamp: 2; ">
                                         <?php echo $title ?></h5>
                                 </a>
+                                <small>Uploaded on: <?php echo $upload_date ?></small>
                             </div>
                         </div>
                     </div>
@@ -552,4 +559,7 @@ if(isset($_POST['comment'])){
             });
         });
         </script>
-        <?php include "footer.php" ?>
+        
+        <?php 
+        include "share_modal.php";
+        include "footer.php" ?>

@@ -67,6 +67,9 @@ if(isset($_POST['add_category'])){
             <li class="sidenav-list"><a href="view_comments.php"><i class="fa-solid fa-users"></i>&nbsp;View Comments</a></li>
             <hr>
             <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-comment-dots"></i>&nbsp;View Users</a></li>
+            <hr>
+            <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-flag"></i>&nbsp;Password Reset Requests
+            <span class="badge badge-danger">4</span></a></li>
     </div>
 </div>
 <script src="js/sidebar.js"></script>

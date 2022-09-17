@@ -74,6 +74,17 @@ $username = $_SESSION['username'];
                     </div>
                 </ul>
                 <ul class="navbar-nav">
+                <li class="nav-item">
+                        <a href="view_emails.php" class="nav-link text-danger" style="font-size:25px" data-toggle="tooltip" title="Emails"><i class="fa-solid fa-bell"></i>
+                        <sup><small>
+                            <?php
+                        $query = "SELECT * FROM emails WHERE status='unread'";
+                        $select_from_table = mysqli_query($connection, $query);
+                        echo mysqli_num_rows($select_from_table);
+                        ?>
+                        </small></sup>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="../home.php" class="nav-link">To The Site</a>
                     </li>

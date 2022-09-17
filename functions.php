@@ -2,16 +2,18 @@
 <?php
 session_start();
 
+
+//-------------------  -------------------
 function redirect($location){
     return header("Location: " . $location);
     exit;
 }
-
+//-------------------  -------------------
 function escape($string) {
     global $connection;
     return mysqli_real_escape_string($connection, trim($string));
 }
-//confirms if the SQL query is running
+//------------------- confirms if the SQL query is running -------------------
 function confirm_Query($result) {
     global $connection;
     if (!$result){
@@ -19,7 +21,7 @@ function confirm_Query($result) {
     }
 }
 
-//checks if the user already exists during registration
+//------------------- checks if the user already exists during registration -------------------
 function username_exists($username){
     global $connection;
     $query = "SELECT username FROM users WHERE username = '$username'";
@@ -35,7 +37,7 @@ function username_exists($username){
     }
 }
 
-//checks if the email already exists during registration
+//------------------- checks if the email already exists during registration -------------------
 function email_exists($email){
     global $connection;
     $query = "SELECT email FROM users WHERE email = '$email'";
@@ -51,13 +53,14 @@ function email_exists($email){
     }
 }
 
-//registers new user
+//------------------- registers new user -------------------
 function register_user($fullname, $phone, $nationality, $email, $username, $password){
     global $connection;
     date_default_timezone_set("Asia/Kathmandu");
     $date=date('d-m-Y');
-    $status='active';
+    $status='inactive';
     $is_admin=0;
+    $verification_key = md5(time().$username);
     $profile_pic = 'profile.png';
     $password = password_hash($password, PASSWORD_BCRYPT, array('cost'=>12));
     $stmt = mysqli_prepare($connection, "INSERT INTO users(fullname, phone, nationality, email, profile_image, username, password, status, registered_date, is_admin) VALUES(?,?,?,?,?,?,?,?,?,?) ");
@@ -65,10 +68,32 @@ function register_user($fullname, $phone, $nationality, $email, $username, $pass
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     if($stmt){
+        $subject="Email Verification";
+        $from = "noreply@ismt.com";
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers .= 'From: '.$from."\r\n".
+        'Reply-To: '.$from."\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+        $message ="
+        <html>
+        <head>
+        <title>Email Verification</title>
+        </head>
+        <body>
+        <h2>Dear $fullname,</h2>
+        <p>Thank you for requesting user registration. Please click link given below to activate your user account.</p>
+        <center><a href='http://localhost:8080/FunOlympicPHP/verify_email.php?email=$email'>Verify</a><center>
+        </body>
+        </html>";
+        
+        mail($email, $subject, $message, $headers);
+
+        echo "<script type='text/javascript'> window.open('thankyou.php?email=$email', '_blank')</script>";
         return true;
     }
 }
-//checks if the registered user is verified or not
+//------------------- checks if the registered user is verified or not -------------------
 function notVerifiedUser($username){
     global $connection;
     $username = escape(trim($username));
@@ -83,6 +108,8 @@ function notVerifiedUser($username){
         return false;
     }
 }
+
+//-------------------  -------------------
 function login_user($username, $password){
     global $connection;
     
@@ -111,6 +138,20 @@ function login_user($username, $password){
     
 }
 
+//-------------------  -------------------
+function verify_email($email){
+    global $connection;
+    $email = escape($email);
+    $query = "UPDATE users SET status = 'active' WHERE email = '{$email}'";
+    $result = mysqli_query($connection, $query);
+    confirm_Query($result);
+    if(!$result){
+        return false;
+    }
+    return true;
+}
+
+//-------------------  -------------------
 function add_comment($uid, $vid, $content, $date, $time){
     global $connection;
     $stmt = mysqli_prepare($connection, "INSERT INTO comments(uid, vid, comment, date, time) VALUES(?,?,?,?,?) ");
@@ -122,12 +163,14 @@ function add_comment($uid, $vid, $content, $date, $time){
     }
 }
 
+//-------------------  -------------------
 function update_view_count($views, $vid){
     global $connection;
     $query = "UPDATE videos SET views = $views+1 WHERE vid = '$vid'";
     $update_views = mysqli_query($connection, $query);
 }
 
+//-------------------  -------------------
 function fetch_highlights(){
     global $connection;
     $query = "SELECT * FROM videos";
@@ -157,6 +200,7 @@ function fetch_highlights(){
         }
 }
 
+//-------------------  -------------------
 function fetch_live_videos(){
 global $connection;
 $query = "SELECT * FROM live_videos";
@@ -184,6 +228,8 @@ echo "<div class='col-md-3'>
     </div>";
 }
 }
+
+//-------------------  -------------------
 function fetch_videos_by_categories($category_name){
     global $connection;
     $query = "SELECT * FROM videos WHERE category_title ='$category_name'";
@@ -217,6 +263,8 @@ function fetch_videos_by_categories($category_name){
         }
     }
 }
+
+//-------------------  -------------------
 function fetch_fixtures(){
     global $connection;
     $query = "SELECT * FROM fixtures";
@@ -246,6 +294,7 @@ function fetch_fixtures(){
             </div>";
     }
 }
+//-------------------  -------------------
 function fixtures_by_category($category_name){
     global $connection;
     $query = "SELECT * FROM fixtures WHERE fixture_category = '$category_name'";
@@ -275,6 +324,8 @@ function fixtures_by_category($category_name){
             </div>";
     }
 }
+
+//-------------------  -------------------
 function fixtures_by_country($country_name){
     global $connection;
     $query = "SELECT * FROM fixtures WHERE fixture_countries LIKE '%$country_name%'";
@@ -304,6 +355,8 @@ function fixtures_by_country($country_name){
             </div>";
     }
 }
+
+//-------------------  -------------------
 function fetch_photos(){
     global $connection;
     $sql = "SELECT * FROM photos";
@@ -341,6 +394,8 @@ function fetch_photos(){
         ";
     }
 }
+
+//-------------------  -------------------
 function fetch_photos_by_category($category_name){
     global $connection;
     $sql = "SELECT * FROM photos WHERE category_title='$category_name'";
@@ -371,6 +426,8 @@ function fetch_photos_by_category($category_name){
             </script>";
     }
 }
+
+//-------------------  -------------------
 function commentsCount($table, $id){
     global $connection;
     $query = "SELECT * FROM " . $table . " WHERE vid=" . $id;
@@ -378,6 +435,8 @@ function commentsCount($table, $id){
     $result = mysqli_num_rows($select_from_table);
     return $result;
 }
+
+//-------------------  -------------------
 function add_to_favorite($uid, $vid){
     global $connection;
     $stmt = mysqli_prepare($connection, "INSERT INTO favorite_videos(uid, vid) VALUES(?,?) ");
@@ -388,11 +447,15 @@ function add_to_favorite($uid, $vid){
         return true;
     }
 }
+
+//-------------------  -------------------
 function remove_from_favorite($uid, $vid){
     global $connection;
     $query = "DELETE FROM favorite_videos WHERE uid = $uid AND vid = $vid";
     mysqli_query($connection, $query);
 }
+
+//------------------- check video has been added as favorite or not -------------------
 function is_favorite_video($uid, $vid){
     global $connection;
     $query = "SELECT * FROM favorite_videos WHERE uid = $uid AND vid = $vid";
@@ -401,16 +464,41 @@ function is_favorite_video($uid, $vid){
     return $result;
 }
 
-
-//play live video in play_video.php
-
-function play_live_video(){
-
-}
-
-//play uploaded video in play_video.php
-
-function play_uploaded_video(){
-    
-                
+//------------------- Send mail -------------------
+function send_mail($email, $phone, $fullname, $content){
+    global $connection;
+    date_default_timezone_set("Asia/Kathmandu");
+    $date=date('d-m-Y');
+    $status='unread';
+    $stmt = mysqli_prepare($connection, "INSERT INTO emails(fullname, phone, email, message, status, sent_date) VALUES(?,?,?,?,?,?) ");
+    mysqli_stmt_bind_param($stmt, 'ssssss', $fullname, $phone, $email, $content, $status, $date);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    if($stmt){
+    $subject="Enquery through contact form";
+        $from = "noreply@ismt.com";
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers .= 'From: '.$from."\r\n".
+        'Reply-To: '.$from."\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+        $message ="
+        <html>
+        <head>
+        <title>Email Verification</title>
+        </head>
+        <body>
+        <p><strong>Fullname: </strong>$fullname</p>
+        <p><strong>Email: </strong>$email</p>
+        <p><strong>Contact Number: </strong>$phone</p>
+        <p><strong>Message: </strong>$content</p>
+        </body>
+        </html>";
+        if(mail($email, $subject, $message, $headers)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
