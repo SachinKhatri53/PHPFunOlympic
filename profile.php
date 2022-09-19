@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <hr>
-                <a href="">Change Password</a>
+                <a href="change_password.php">Change Password</a>
                 <hr>
                 <br>
                 <a href="" class="btn btn-danger">Deactivate</a>

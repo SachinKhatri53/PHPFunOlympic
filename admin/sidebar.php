@@ -19,7 +19,6 @@ if(isset($_POST['add_category'])){
 ?>
 <link rel="stylesheet" href="css/sidebar.css">
 <div class="sidenav">
-    <div class="row">
         <ul>
         <hr>
             <li class="sidenav-list"><a href="../admin/"><i class="fa-solid fa-gauge"></i>&nbsp;Dashboard</a></li>
@@ -68,8 +67,7 @@ if(isset($_POST['add_category'])){
             <hr>
             <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-comment-dots"></i>&nbsp;View Users</a></li>
             <hr>
-            <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-flag"></i>&nbsp;Password Reset Requests
-            <span class="badge badge-danger">4</span></a></li>
-    </div>
+            <li class="sidenav-list"><a href="view_password_reset_requests.php"><i class="fa-solid fa-flag"></i>&nbsp;Password Reset Requests
+            <span class="badge badge-danger"><?php echo pending_password_reset_count() ?></span></a></li>
 </div>
 <script src="js/sidebar.js"></script>

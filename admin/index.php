@@ -1,6 +1,5 @@
 <title>Dashboard: Fun Olympic Game</title>
 <?php include "admin_header.php" ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <div class="col-md-3">
     <?php include "sidebar.php"?>
 </div>

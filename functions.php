@@ -125,7 +125,7 @@ function login_user($username, $password){
         if (password_verify($password, $db_password)) {
         $_SESSION['uid'] = $db_uid;
         $_SESSION['username'] = $db_username;
-        $_SESSION['email'] = $db_user_email;
+        $_SESSION['email'] = $db_email;
         $_SESSION['logged_in'] = "logged_in";
         if($is_admin == 0){
             redirect("home.php");
@@ -501,4 +501,27 @@ function send_mail($email, $phone, $fullname, $content){
             return false;
         }
     }
+}
+
+//-------------------  -------------------
+function request_password_reset($email){
+    global $connection;
+    date_default_timezone_set("Asia/Kathmandu");
+    $date=date('d-m-Y');
+    $stmt = mysqli_prepare($connection, "INSERT INTO password_reset_request(email, requested_date) VALUES(?,?,?) ");
+    mysqli_stmt_bind_param($stmt, 'sss', $email, $date);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    if($stmt){
+        return true;
+    }
+}
+
+//-------------------  -------------------
+function recordCount($table){
+    global $connection;
+    $query = "SELECT * FROM " . $table;
+    $select_from_table = mysqli_query($connection, $query);
+    $result = mysqli_num_rows($select_from_table);
+    return $result;
 }
