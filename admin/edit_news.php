@@ -72,7 +72,7 @@ while($row = mysqli_fetch_assoc($select_query)){
 }
 ?>
 
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-9" id="main-container">

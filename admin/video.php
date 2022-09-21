@@ -13,7 +13,7 @@
         $upload_time = $row['upload_time'];
 } ?>
 <title>Admin: <?php echo $video_title ?></title>
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-9" id="main-container">

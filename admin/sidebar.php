@@ -18,9 +18,15 @@ if(isset($_POST['add_category'])){
 }
 ?>
 <link rel="stylesheet" href="css/sidebar.css">
-<div class="sidenav">
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerSidebar"
+        aria-controls="navbarTogglerSidebar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerSidebar">
         <ul>
-        <hr>
+            <hr>
             <li class="sidenav-list"><a href="../admin/"><i class="fa-solid fa-gauge"></i>&nbsp;Dashboard</a></li>
             <hr>
             <li class="sidenav-list" id="category"><i class="fa-solid fa-list"></i>&nbsp;Sports Category
@@ -58,16 +64,21 @@ if(isset($_POST['add_category'])){
                 <ul>
                     <li class="sidenav-sublist"><a href="add_photo.php"><i class="fa-solid fa-plus"></i>&nbsp;Add New
                             Photo</a></li>
-                    <li class="sidenav-sublist"><a href="view_photos.php"><i class="fa-solid fa-layer-group"></i>&nbsp;View
+                    <li class="sidenav-sublist"><a href="view_photos.php"><i
+                                class="fa-solid fa-layer-group"></i>&nbsp;View
                             All Photos</a></li>
                 </ul>
             </li>
             <hr>
-            <li class="sidenav-list"><a href="view_comments.php"><i class="fa-solid fa-users"></i>&nbsp;View Comments</a></li>
+            <li class="sidenav-list"><a href="view_comments.php"><i class="fa-solid fa-users"></i>&nbsp;View
+                    Comments</a></li>
             <hr>
-            <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-comment-dots"></i>&nbsp;View Users</a></li>
+            <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-comment-dots"></i>&nbsp;View
+                    Users</a></li>
             <hr>
-            <li class="sidenav-list"><a href="view_password_reset_requests.php"><i class="fa-solid fa-flag"></i>&nbsp;Password Reset Requests
-            <span class="badge badge-danger"><?php echo pending_password_reset_count() ?></span></a></li>
-</div>
+            <li class="sidenav-list"><a href="view_password_reset_requests.php"><i
+                        class="fa-solid fa-flag"></i>&nbsp;Password Reset Requests
+                    <span class="badge badge-danger"><?php echo pending_password_reset_count() ?></span></a></li>
+    </div>
+</nav>
 <script src="js/sidebar.js"></script>

@@ -68,7 +68,7 @@ if(isset($_POST['update_video'])){
         $db_upload_date = $row['upload_date'];
         $db_upload_time = $row['upload_time'];
 }?>
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-9" id="main-container">

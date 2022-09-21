@@ -5,7 +5,7 @@ if(isset($_GET['status'])){
     $status = $_GET['status'];
 }
 ?>
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-8" id="main-container">

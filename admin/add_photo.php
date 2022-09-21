@@ -46,10 +46,10 @@ if(isset($_POST['upload_photo'])){
     }
 }
 ?>
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
-<div class="col-md-6">
+<div class="col-md-6" id="main-container">
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-8">

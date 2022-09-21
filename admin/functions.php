@@ -106,7 +106,6 @@ function deleteCategories(){
     global $connection;
     if (isset($_GET['delete'])) {
          $cid = $_GET['delete'];
-
          $query = "DELETE FROM categories WHERE cid = {$cid}";
          $delete_cat = mysqli_query($connection, $query);
      }

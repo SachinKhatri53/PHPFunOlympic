@@ -49,7 +49,7 @@ if(empty($live_video_error)){
 
 <div class="modal fade" id="liveVideoModal" tabindex="-1" role="dialog" aria-labelledby="liveVideoLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-center" id="liveVideoModalLabel">Add New Live Video</h5>

@@ -57,7 +57,7 @@ if(empty($news_error)){
 ?>
 
 <div class="modal fade" id="newsModal" tabindex="-1" style="" role="dialog" aria-labelledby="newsModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newsModalLabel">Add New News</h5>
@@ -67,18 +67,27 @@ if(empty($news_error)){
                 
             </div>
             <div class="modal-body">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" id="news-form" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" name="news_title" id="" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($error['title_error']) ? $error['title_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="youtube_url">Description</label>
                         <input type="text" name="news_description" id="" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($error['description_error']) ? $error['description_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="image">Thumbnail</label>
                         <input type="file" name="news_thumbnail" id="" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($error['upload_error']) ? $error['upload_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="category">Category</label>
@@ -93,6 +102,9 @@ if(empty($news_error)){
                             }
                         ?>
                         </select>
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($error['category_error']) ? $error['category_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Add" name="add_news" class="btn btn-sm btn-block btn-primary">

@@ -69,7 +69,7 @@ if(isset($_GET['edit'])){
         $db_fixture_category = $row['fixture_category'];
         $db_fixture_countries = $row['fixture_countries'];
 }?>
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-9" id="main-container">

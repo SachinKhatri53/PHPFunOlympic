@@ -55,7 +55,7 @@ if(isset($_POST['upload_video'])){
 }
 ?>
 
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-6" id="main-container">

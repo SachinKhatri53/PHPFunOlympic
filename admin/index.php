@@ -1,7 +1,11 @@
 <title>Dashboard: Fun Olympic Game</title>
 <?php include "admin_header.php" ?>
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar" style="">
     <?php include "sidebar.php"?>
+    <p>hi</p>
+    <p>hi</p>
+    <p>hi</p>
+    <p>hi</p>
 </div>
 <div class="col-md-7" id="main-container">
 

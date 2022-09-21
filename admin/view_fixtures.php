@@ -1,6 +1,6 @@
 <title>Admin: View All Fixtures</title>
 <?php include "admin_header.php" ?>
-<div class="col-md-3">
+<div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-9" id="main-container">
