@@ -1,3 +1,5 @@
+<title>Admin: Add New Fixture</title>
+<?php include "admin_header.php" ?>
 <?php
 // $upload_date = date('d-m-Y');
 // $upload_time = date("h:i:sa");
@@ -50,36 +52,42 @@ if(empty($fixture_error)){
 }
 }
 ?>
-<div class="modal fade" id="fixturesModal" tabindex="-1" role="dialog" aria-labelledby="fixturesModalLabel" aria-hidden="true" style="z-index:90">
-    <div class="modal-dialog modal-dialog-centered" role="document" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newsModalLabel">Add New Fixture</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="col-md-3" id="sidebar">
+    <?php include "sidebar.php"?>
+</div>
+<div class="col-md-9" id="main-container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4>Add New Fixture</h4>
+            <hr>
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for="fixture_title">Title</label>
+                    <input type="text" name="fixture_title" id="" class="form-control">
+                </div>
+                <?php include "country_list.php" ?>
                 
-            </div>
-            <div class="modal-body">
-                <form action="" method="post">
+                <div class="row">
+                    <div class="col-6">
                     <div class="form-group">
-                        <label for="fixture_title">Title</label>
-                        <input type="text" name="fixture_title" id="" class="form-control">
+                    <label for="fixture_date">Date</label>
+                    <input type="date" name="fixture_date" id="" class="form-control">
+                </div>
                     </div>
-                    <?php include "country_list.php" ?>
+                    <div class="col-6">
                     <div class="form-group">
-                        <label for="fixture_date">Date</label>
-                        <input type="date" name="fixture_date" id="" class="form-control">
+                    <label for="fixture_time">Time</label>
+                    <input type="time" name="fixture_time" id="" class="form-control">
+                </div>
                     </div>
-                    <div class="form-group">
-                        <label for="fixture_time">Time</label>
-                        <input type="time" name="fixture_time" id="" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="fixture_category">Category</label>
-                        <select name="fixture_category" id="" class="form-control">
-                            <option value="">Select</option>
-                            <?php
+                </div>
+                
+                <div class="form-group">
+                    <label for="fixture_category">Category</label>
+                    <select name="fixture_category" id="" class="form-control">
+                        <option value="">Select</option>
+                        <?php
                             $categories_query = "SELECT * FROM categories";
                             $select_categories_query = mysqli_query($connection, $categories_query);
                             while($row = mysqli_fetch_assoc($select_categories_query)) {
@@ -87,14 +95,14 @@ if(empty($fixture_error)){
                             echo "<option value='$title'>$title</option>";
                             }
                         ?>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="submit" value="Add" name="add_fixture" class="btn btn-sm btn-block btn-primary">
-                    </div>
-                </form>
-            </div>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Add" name="add_fixture" class="btn btn-sm btn-block btn-primary">
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<?php include "admin_footer.php" ?>

@@ -34,13 +34,12 @@ $username = $_SESSION['username'];
                             Live Videos
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" data-toggle="modal" data-target="#liveVideoModal"
+                            <a class="dropdown-item" href=''
                                 style="cursor:pointer"><i class="fa-solid fa-upload"></i>&nbsp;New Live Video</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="view_live_videos.php"><i
                                     class="fa-solid fa-circle-dot"></i>&nbsp;All Live Videos</a>
                         </div>
-                        <?php include "add_live_video_modal.php"?>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="btn-group">
@@ -64,13 +63,12 @@ $username = $_SESSION['username'];
                             Fixtures
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" data-toggle="modal" data-target="#fixturesModal"
+                            <a class="dropdown-item" href='add_fixtures.php']
                                 style="cursor:pointer"><i class="fa-solid fa-square-plus"></i>&nbsp;Add Fixture</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="view_fixtures.php"><i
                                     class="fa-solid fa-newspaper"></i>&nbsp;All Fixtures</a>
                         </div>
-                        <?php include "add_fixtures_modal.php"?>
                     </div>
                 </ul>
                 <ul class="navbar-nav">

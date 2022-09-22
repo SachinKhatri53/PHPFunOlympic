@@ -525,3 +525,28 @@ function recordCount($table){
     $result = mysqli_num_rows($select_from_table);
     return $result;
 }
+
+//------------------- checks if user has provided correct old passsword while changing with new one -------------------
+function check_old_password($username, $old_password){
+    global $connection;
+    $select_query = "SELECT password FROM users WHERE username = '$username'";
+    $query_result = mysqli_query($connection, $select_query);
+    while ($row = mysqli_fetch_array($query_result)) {
+            $db_user_password = $row ['password'];
+            if (password_verify($old_password, $db_user_password)) {
+                return true;
+            }
+        }
+}
+//------------------- changes password of verified user -------------------
+function change_password($username, $new_password){
+    global $connection;
+    $hashed_password = password_hash($new_password, PASSWORD_BCRYPT, array('cost'=>12));
+        $query = "UPDATE users SET password = '{$hashed_password}' WHERE username = '{$username}'";
+        $result = mysqli_query($connection, $query);
+        confirm_Query($result);
+        if(!$result){
+            return false;
+        }
+        return true;
+}

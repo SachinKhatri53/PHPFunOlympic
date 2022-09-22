@@ -2,12 +2,8 @@
 <?php include "admin_header.php" ?>
 <div class="col-md-3" id="sidebar" style="">
     <?php include "sidebar.php"?>
-    <p>hi</p>
-    <p>hi</p>
-    <p>hi</p>
-    <p>hi</p>
 </div>
-<div class="col-md-7" id="main-container">
+<div class="col-md-9" id="main-container">
 
     <div class="row">
         <div class="col-lg-3 col-md-6">
