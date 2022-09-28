@@ -1,6 +1,6 @@
 <title>Admin: View All Users</title>
 <?php include "admin_header.php";
-
+$status = "";
 if(isset($_GET['status'])){
     $status = $_GET['status'];
 }
@@ -37,7 +37,8 @@ if(isset($_GET['status'])){
                             <th>Email</th>
                             <th>Username</th>
                             <th>Status</th>
-                            <th colspan="2">Actions</th>
+                            <th>Last Login</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,22 +58,22 @@ if(isset($_GET['status'])){
                         $email     = $row['email'];
                         $username     = $row['username']; 
                         $profile_image     = $row['profile_image'];       
-                        $status     = $row['status']; 
+                        $status     = $row['status'];
+                        $last_login     = $row['last_login']; 
                         echo "<tr>";
-                    echo "<td>$fullname</td>";
-                    echo "<td>$email</td>";
-                    echo "<td>$username</td>";
-                    echo "<td>$status</td>";
-                    if($status=='active'){
-                        echo "<td><a href='view_users.php?inactive=$uid' class='btn btn-warning btn-sm'>Inactive</a></td>";
-                    }
-                    else{
-                        echo "<td><a href='view_users.php?active=$uid' class='btn btn-success btn-sm'>Active</a></td>";
-                    }
-                    
-                    echo "<td><a href='comments.php?delete=$uid' class='btn btn-danger btn-sm'>Reset Password</a></td>";
-                    echo "</tr>";
-                    }
+                        echo "<td>$fullname</td>";
+                        echo "<td>$email</td>";
+                        echo "<td>$username</td>";
+                        echo "<td>$status</td>";
+                        echo "<td>$last_login</td>";
+                        if($status=='active'){
+                            echo "<td><a href='view_users.php?inactive=$uid' class='btn btn-danger btn-sm'>Deactivate</a></td>";
+                        }
+                        else{
+                            echo "<td><a href='view_users.php?active=$uid' class='btn btn-success btn-sm'>Activate</a></td>";
+                        }    
+                        echo "</tr>";
+                        }
                     ?>
                     </tbody>
                 </table>

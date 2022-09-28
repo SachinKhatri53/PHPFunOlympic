@@ -6,11 +6,7 @@ if(isset($_GET['edit'])){
 <title>Admin: Edit Fixture - <?php echo $_GET['title'] ?></title>
 <?php include "admin_header.php" ?>
 <?php 
-
-    $upload_date = date('d-m-Y');
-    $upload_time = date("h:i:sa");
-    $allowed = array('jpg', 'jpeg', 'png');
-    if(isset($_POST['upload_photo'])){
+    if(isset($_POST['edit_fixture'])){
         $fixture_title = escape($_POST['fixture_title']);
         $fixture_date = escape($_POST['fixture_date']);
         $fixture_time = escape($_POST['fixture_time']);
@@ -46,13 +42,13 @@ if(isset($_GET['edit'])){
             }
         }
         if(empty($fixture_error)){
-            if(editFixture($fixture_title, $fixture_date, $fixture_time, $fixture_category, $fixture_countries)){
+            if(edit_fixture($fid, $fixture_title, $fixture_date, $fixture_time, $fixture_category, $fixture_countries)){
               
-                $fixture_upload_message = "Fixture has been added successfully";
+                $fixture_upload_message = "Fixture has been updated successfully";
                 $fixture_upload_message_color ="text-success";
             }
             else{
-                $fixture_upload_message = "Fixture could not be added";
+                $fixture_upload_message = "Fixture could not be updated";
                 $fixture_upload_message_color ="text-danger";
             }
         }
@@ -78,27 +74,40 @@ if(isset($_GET['edit'])){
         <div class="col-md-8">
             <h4>Edit Fixtures</h4>
             <hr>
-            <p class="<?php echo isset($message_color) ? $message_color : ''?>">
-                <?php echo isset($upload_message) ? $upload_message : ''?></p>
+            <p class="<?php echo isset($fixture_upload_message_color) ? $fixture_upload_message_color : ''?>">
+                <?php echo isset($fixture_upload_message) ? $fixture_upload_message : ''?></p>
                 <form action="" method="post">
                     <div class="form-group">
                         <label for="fixture_title">Title</label>
                         <input type="text" name="fixture_title" id="" value="<?php echo $db_fixture_title ?>" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['title_error']) ? $fixture_error['title_error'] : '' ?>
+                    </p>
                     </div>
                     <?php
-                    include "country_list.php"
-                    ?>
+                    include "country_list.php";?>
+                    <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['countries_error']) ? $fixture_error['countries_error'] : '' ?>
+                    </p>
+                    <?php echo "[<small>$db_fixture_countries</small>]";?>
                     <div class="form-group">
                         <label for="fixture_date">Date</label>
                         <input type="date" name="fixture_date" id="" value="<?php echo $db_fixture_date ?>" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['date_error']) ? $fixture_error['date_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="fixture_time">Time</label>
                         <input type="time" name="fixture_time" value="<?php echo $db_fixture_time ?>" id="" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['time_error']) ? $fixture_error['time_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="fixture_category">Category</label>
                         <select name="fixture_category" id="" class="form-control">
+                        <option value="">Select</option>
                             <?php
                             $categories_query = "SELECT * FROM categories";
                             $select_categories_query = mysqli_query($connection, $categories_query);
@@ -113,10 +122,13 @@ if(isset($_GET['edit'])){
                             }
                         ?>
                         </select>
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['category_error']) ? $fixture_error['category_error'] : '' ?>
+                    </p>
                     </div>
                     
                     <div class="form-group">
-                        <input type="submit" value="Add" name="add_fixture" class="btn btn-sm btn-block btn-primary">
+                        <input type="submit" value="Update" name="edit_fixture" class="btn btn-sm btn-block btn-primary">
                     </div>
                 </form>
         </div>

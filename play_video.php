@@ -1,7 +1,7 @@
 <?php
 $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
-include "functions.php";
+include "header.php";
 // connectionect to database
 
 // lets assume a user is logged in with id $user_id
@@ -127,7 +127,6 @@ $time = date("h:i:sa");
 
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/play_video.css">
-
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -271,7 +270,7 @@ $time = date("h:i:sa");
                                     <div class="col-3">
                                         <span style="cursor:pointer" data-toggle="modal" data-target="#shareModal">
                                             <i class="fa fa-share-square-o" aria-hidden="true"></i> share
-                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -281,10 +280,11 @@ $time = date("h:i:sa");
                                 update_view_count($row['views'], $vid);
                                 if(isset($_POST['favorite'])){
                                 add_to_favorite($uid, $vid);
-                                    
+                                record_activity('Added to favorite videos by <strong>'.$username.'</strong>');
                                 }
                                 if(isset($_POST['undo-favorite'])){
                                     remove_from_favorite($uid, $vid);
+                                    record_activity('Removed from favorite videos by <strong>'.$username.'</strong>');
                                 }
 
                         if(is_favorite_video($uid,$vid)==0){
@@ -342,7 +342,7 @@ $time = date("h:i:sa");
                                     <div class="col-3">
                                         <span data-toggle="modal" data-target="#shareModal" style="cursor:pointer">
                                             <i class="fa fa-share-square-o" aria-hidden="true"></i> share
-                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -368,11 +368,12 @@ $time = date("h:i:sa");
                     }
                     ?>
 
-                <div class="row" style="padding:0 50px">
+                <div class="row" style="padding:0 50px;">
                     <?php 
 if(isset($_POST['comment'])){
     $content = $_POST['content'];
     add_comment($_SESSION['uid'], $vid, $content, $date, $time);
+    record_activity('New comment added by <strong>'.$username.'</strong>');
     
 }?>
                     <form method="post" role="form">
@@ -384,6 +385,8 @@ if(isset($_POST['comment'])){
                         </div>
                     </form>
                 </div>
+<div class="comment-section" style=" height:40vh; overflow-y:scroll;overflow-x:hidden; padding:10px 20px">
+
 
                 <?php
                     $query = "SELECT * FROM comments WHERE vid = $vid";
@@ -396,19 +399,20 @@ if(isset($_POST['comment'])){
                         ?>
 
                 <?php
-                    $query = "SELECT * FROM users WHERE uid = $uid";
-                    $select_user = mysqli_query($connection, $query);  
+                    $user_query = "SELECT * FROM users WHERE uid = $uid";
+                    $select_user = mysqli_query($connection, $user_query);  
             
                     while($row = mysqli_fetch_assoc($select_user)) {
                         $username = $row['username'];
                         $profile_image = $row['profile_image'];
                         echo"<div class='row button'>
-                        <img src='images/$profile_image' alt='' height=50 width=50 style='border-radius:16px;'>                    
-                        $content</div><br>";
-                        } }?>
+                        <img src='images/$profile_image' alt='' height=30 width=30 style='border-radius:16px;'>                    
+                        <span style='margin-bottom:1px solid black'>$content</span></div>";
+                        }
+                        }?>
 
 
-
+</div>
             </div>
             <div class="col-md-3">
                 <?php
@@ -426,9 +430,9 @@ if(isset($_POST['comment'])){
                                   ?>
                     <div class="row" style='margin-bottom:10px'>
                         <div class="card">
-                        <video width="100%" controls>
-                        <source src="videos/<?php echo $video_path ?>" type="video/mp4">
-                    </video>
+                            <video width="100%" controls>
+                                <source src="videos/<?php echo $video_path ?>" type="video/mp4">
+                            </video>
                             <div class="card-footer">
                                 <a
                                     href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
@@ -459,7 +463,7 @@ if(isset($_POST['comment'])){
                               ?>
                     <div class="row" style='margin-bottom:10px'>
                         <div class="card">
-                        <iframe src="<?php echo $row['video_url'] ?>"></iframe>
+                            <iframe src="<?php echo $row['video_url'] ?>"></iframe>
                             <div class="card-footer">
                                 <a
                                     href="play_video.php?vid=<?php echo $vid ?>&title=<?php echo $title ?>&type=highlight">
@@ -559,7 +563,7 @@ if(isset($_POST['comment'])){
             });
         });
         </script>
-        
+
         <?php 
         include "share_modal.php";
         include "footer.php" ?>

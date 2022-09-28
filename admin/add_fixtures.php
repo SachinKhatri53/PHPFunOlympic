@@ -18,7 +18,7 @@ if(isset($_POST['add_fixture'])){
     'category_error'=>'',        
   ];
 
-  if(empty($fixture_title)){
+  if($fixture_title==''){
     $fixture_error['title_error'] = 'Title cannot be empty.';
   }
   if(empty($fixture_date)){
@@ -61,24 +61,38 @@ if(empty($fixture_error)){
         <div class="col-md-8">
             <h4>Add New Fixture</h4>
             <hr>
+            <p class="<?php echo isset($fixture_upload_message_color) ? $fixture_upload_message_color : ''?>">
+                <?php echo isset($fixture_upload_message) ? $fixture_upload_message : ''?></p>
             <form action="" method="post">
                 <div class="form-group">
                     <label for="fixture_title">Title</label>
                     <input type="text" name="fixture_title" id="" class="form-control">
+                    <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['title_error']) ? $fixture_error['title_error'] : '' ?>
+                    </p>
                 </div>
                 <?php include "country_list.php" ?>
+                <p class="text-danger" style="font-size:12px">
+                    <?php echo isset($fixture_error['countries_error']) ? $fixture_error['countries_error'] : '' ?>
+                </p>
                 
                 <div class="row">
                     <div class="col-6">
                     <div class="form-group">
                     <label for="fixture_date">Date</label>
                     <input type="date" name="fixture_date" id="" class="form-control">
+                    <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['date_error']) ? $fixture_error['date_error'] : '' ?>
+                    </p>
                 </div>
                     </div>
                     <div class="col-6">
                     <div class="form-group">
                     <label for="fixture_time">Time</label>
                     <input type="time" name="fixture_time" id="" class="form-control">
+                    <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['time_error']) ? $fixture_error['time_error'] : '' ?>
+                    </p>
                 </div>
                     </div>
                 </div>
@@ -96,6 +110,9 @@ if(empty($fixture_error)){
                             }
                         ?>
                     </select>
+                    <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($fixture_error['category_error']) ? $fixture_error['category_error'] : '' ?>
+                    </p>
                 </div>
 
                 <div class="form-group">

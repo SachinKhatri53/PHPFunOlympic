@@ -4,7 +4,10 @@ if(isset($_GET['category'])){
 }
 ?>
 <title>Gallery</title>
-<?php include "header.php" ?>
+<?php
+
+    include "header.php";
+?>
 <link rel="stylesheet" href="css/gallery.css">
 <!--    magnific popup-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

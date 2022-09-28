@@ -1,5 +1,8 @@
 <title>News</title>
-<?php include "header.php" ?>
+
+<?php
+    include "header.php";
+?>
 <div class="row jumbotron justify-content-center" style="margin-top:80px; color:#ea540a; padding:40px 0">
     <h2>News</h2>
 </div>

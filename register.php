@@ -73,8 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$responseData = json_decode($verifyResponse);
 		if($responseData->success){
 			if(register_user($fullname, $phone, $nationality, $email, $username, $password)){
-                echo("<p class='text-success'>Registration successful</p>");
-            }
+                echo "<script type='text/javascript'> window.open('thankyou.php?email=$email', '_blank')</script>";            }
             else{
                 echo("<p class='text-danger'>Registration failed</p>");
             }

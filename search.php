@@ -1,9 +1,11 @@
-<?php if(isset($_POST['btn-search'])){
-                    $search = $_POST['search'];
+<?php
+if(isset($_POST['btn-search'])){
+    $search = $_POST['search'];
 }?>
 <title>Search: <?php echo $search ?></title>
 
 <?php include "header.php" ?>
+<?php record_activity("<strong>" . $_SESSION['username'] . "</strong> searched for <strong>".$search."</strong>", $_SESSION['ip_address'], $_SESSION['country_name']); ?>
 <div class="row" style="margin:100px 0 10px 0; color:#ea540a;">
     <div class="col-md-4"></div>
     <div class="col-md-6">

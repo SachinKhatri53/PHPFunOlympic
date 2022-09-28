@@ -1,5 +1,8 @@
 <title>Contact</title>
-<?php include "header.php" ?>
+<?php
+    include "header.php";
+?>
+
 <?php
 if(isset($_POST['btn-contact'])){
     $fullname = $_POST['fullname'];
@@ -35,6 +38,7 @@ if(isset($_POST['btn-contact'])){
     }
     if(empty($error)){
         if(send_mail($email, $phone, $fullname, $message)){
+            record_activity('<strong>'.$fullname.'</strong> sent an email', $_SESSION['ip_address'], $_SESSION['country_name']);
             $mail_sent = "<p class='text-center text-success'>Your message has been sent.<br> THANK YOU</p>";
         }
 	}

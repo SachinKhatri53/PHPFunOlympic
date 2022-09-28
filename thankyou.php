@@ -1,4 +1,9 @@
-<?php include "functions.php" ?>
+<?php include "functions.php";
+if(empty($_GET['email']) || $_GET['email'] == ''){
+    redirect('index.php');
+    die();
+}
+?>
 <?php
 // if(empty($_SESSION['logged_in']) || $_SESSION['logged_in'] == ''){
 //     redirect('signin.php');

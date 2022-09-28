@@ -1,5 +1,9 @@
-<?php include "functions.php" ?>
 <?php
+include ("functions.php");
+if(empty($_SESSION['logged_in']) || $_SESSION['logged_in'] == ''){
+    redirect('index.php');
+    die();
+}
 $username = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
@@ -36,9 +40,9 @@ $username = $_SESSION['username'];
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?php if(!isset($_GET['notlogged'])){echo 'home.php';} else{echo 'index.php';}?>">HOME</a>
+                    <a class="nav-link" href="home.php">HOME</a>
                 </li>
-                <?php if(!isset($_GET['notlogged'])){ ?>
+ 
                 <li class="nav-item">
                     <a class="nav-link" href="video_archive.php">VIDEOS</a>
                 </li>
@@ -61,7 +65,6 @@ $username = $_SESSION['username'];
                         <a class='dropdown-item' href='categories.php'>More Categories</a>
                     </div>
                 </li>
-                <?php } ?>
                 <li class="nav-item">
                     <a class="nav-link" href="news.php">NEWS</a>
                 </li>
@@ -76,7 +79,6 @@ $username = $_SESSION['username'];
                 </li>
 
             </ul>
-            <?php if(!isset($_GET['notlogged'])){ ?>
             <ul class="navbar-nav">
 
                 <li class="nav-item">
@@ -99,7 +101,6 @@ $username = $_SESSION['username'];
                             class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</a>
                 </li>
             </ul>
-            <?php } ?>
         </div>
     </nav>
     <div class="container-fluid">

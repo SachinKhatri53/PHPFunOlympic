@@ -10,6 +10,7 @@ if(isset($_POST['add_category'])){
     }
     else{
         add_category($category_title);
+        record_activity('Category <strong>' . $category_title . '</strong> added', $_SESSION['ip_address'], $_SESSION['country_name']);
         $category_title_message = "New category added successfully.";
         $category_title_message_color = "text-success";
         $display_icon_minus = "fa-minus";
@@ -69,14 +70,13 @@ if(isset($_POST['add_category'])){
                 </ul>
             </li>
             <hr>
-            <li class="sidenav-list"><a href="view_comments.php"><i class="fa-solid fa-users"></i>&nbsp;View
+            <li class="sidenav-list"><a href="view_comments.php"><i class="fa-solid fa-comment-dots"></i>&nbsp;View
                     Comments</a></li>
-            <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-comment-dots"></i>&nbsp;View
+            <li class="sidenav-list"><a href="view_users.php"><i class="fa-solid fa-users"></i>&nbsp;View
                     Users</a></li>
-            <li class="sidenav-list"><a href="view_password_reset_requests.php"><i
-                        class="fa-solid fa-flag"></i>&nbsp;Password Reset Requests
-                    <span class="badge badge-danger"><?php echo pending_password_reset_count() ?></span></a></li>
-                    <hr>
+            <li class="sidenav-list"><a href="view_password_reset_requests.php"><i class="fa-solid fa-flag"></i>&nbsp;Password Reset Requests
+                <span class="badge badge-danger"><?php echo pending_password_reset_count() ?></span></a></li>
+            <li class="sidenav-list"><a href="activity_log.php"><i class="fa-solid fa-chart-line"></i>&nbsp;Activity Log</a></li>
     </div>
 </nav>
 <script src="js/sidebar.js"></script>

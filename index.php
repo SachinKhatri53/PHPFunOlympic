@@ -16,7 +16,10 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         
         header('Location: login.php?error_login');
     }
+    
     login_user($username, $password);
+    $_SESSION['logged_in'] = "logged_in";
+    
 }
 include "login_modal.php";
 ?>
@@ -50,24 +53,7 @@ include "login_modal.php";
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">HOME</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="" data-toggle="modal" data-target="#loginModal">VIDEOS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="news.php?notlogged">NEWS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="gallery.php?notlogged">GALLERY</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="fixtures.php?notlogged">FIXTURES</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.php?notlogged">CONTACT</a>
-                </li>
+                <h3 class="text-light">Bayjing City - Fun Olympic</h3>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -92,7 +78,7 @@ include "login_modal.php";
         </div>
     </nav>
     <div class="container-fluid">
-        <div class="row" style="margin-top:80px">
+        <div class="row" style="margin-top:85px">
             <div class="col-md-12">
                 <h6 class="text-right">Not registered yet?<a href="register.php">Register</a></h6>
             </div>
@@ -205,7 +191,7 @@ include "login_modal.php";
                         <div class='col-1'></div>
                         <div class='col-8'>
                         <div class='row'>
-                        <a href='read_news.php?nid=$nid&title=$news_title'>
+                        <a href='read_news.php?nid=$nid&title=$news_title' data-toggle='modal' data-target='#loginModal'>
                             <h6 style='color:#357960'>$news_title</h6>
                             </a>
                             </div>
@@ -216,7 +202,7 @@ include "login_modal.php";
                     </div>
                     <hr>";
                 }?>
-                <a href="news.php?notlogged" class="btn btn-primary btn-sm btn-block">Read More</a>
+                <a href="news.php?notlogged" data-toggle="modal" data-target="#loginModal" class="btn btn-primary btn-sm btn-block">Read More</a>
             </div>
         </div>
         <div class="row footer">

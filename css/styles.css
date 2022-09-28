@@ -1,9 +1,9 @@
 
 .footer{
     padding:10px 30px;
-    background-color: #027541;
+    /* background-color: #027541; */
     color:aliceblue;
-    position :absolute;
+    position :relative;
     width: 100%;
     bottom:0;
 }
@@ -12,7 +12,7 @@
 }
 .footer ul li i{
     font-size: 2em;
-    color:aliceblue;
+    color:#027541;
 }
 .navbar{
     background:#027541;

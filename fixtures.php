@@ -2,11 +2,11 @@
 if(isset($_GET['category'])){
     $category_name = $_GET['category'];
 }
-if(isset($_GET['nationality'])){
-    $country_name = $_GET['nationality'];
+if(isset($_GET['country'])){
+    $country_name = $_GET['country'];
 }
+include "header.php";
 ?>
-<?php include "header.php" ?>
 <style>
 .card:hover {
     box-shadow: .75em .75em 1em rgb(186, 185, 185);
@@ -27,12 +27,14 @@ if(isset($_GET['nationality'])){
             }
             
             else{
-                if(isset($_GET['category'])){
+                
+                if(isset($country_name)){
+                    fixtures_by_countries($country_name);
+                }
+                if(isset($category_name)){
                     fixtures_by_category($category_name);
                 }
-                else{
-                    fixtures_by_country($country_name);
-                }
+                
                 
                 // fixtures_by_category($category_name);
             }

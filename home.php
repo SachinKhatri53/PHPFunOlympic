@@ -1,6 +1,9 @@
 <title>HomePage: Enjoy every sports</title>
-<?php include "header.php"?>
+<?php
 
+include "header.php";
+
+?>
 <!-------------------------------------------------- Search -------------------------------------------------->
 <div class="row" style="margin:100px 0 10px 0">
     <div class="col-md-4"></div>

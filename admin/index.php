@@ -3,8 +3,8 @@
 <div class="col-md-3" id="sidebar" style="">
     <?php include "sidebar.php"?>
 </div>
-<div class="col-md-9" id="main-container">
-
+<div class="col-md-9" style="margin-top: 60px;
+     position: absolute; left:25%; padding: 20px;">
     <div class="row">
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-primary">
@@ -96,6 +96,40 @@
                 </a>
             </div>
         </div>
+    </div>
+    <div class="row" style="padding:20px; margin-top:10px">
+        <h4 style="bottom-border:1px solid red">Activity Log</h4>
+        <div class='table-responsive'>
+            <table class='table table-bordered table-sm'>
+                
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Activity</th>
+                        <th>Country</th>
+                        <th>IP Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $select_query = mysqli_query($connection, "SELECT * FROM activity_log LIMIT 20");
+                    while($row = mysqli_fetch_assoc($select_query)){
+                        $date = $row['date'];
+                        $activity = $row['activity'];
+                        $country = $row['country'];
+                        $ip_address = $row['ip_address'];
+                    echo"<tr>
+                        <td>$date</td>
+                        <td>$activity</td>
+                        <td>$country</td>
+                        <td>$ip_address</td>
+                    </tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <a href="activity_log.php">View All Activities <i class="fa fa-arrow-circle-right"></i></a>
     </div>
 </div>
 

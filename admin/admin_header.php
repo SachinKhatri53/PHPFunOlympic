@@ -26,7 +26,7 @@ $username = $_SESSION['username'];
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h4 class="text-center">Admin Panel: Fun Olympic</h4>
+                    <h3 class="text-center">Admin Panel: Fun Olympic</h3>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="btn-group">
                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
@@ -34,7 +34,7 @@ $username = $_SESSION['username'];
                             Live Videos
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href=''
+                            <a class="dropdown-item" href='add_live_video.php'
                                 style="cursor:pointer"><i class="fa-solid fa-upload"></i>&nbsp;New Live Video</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="view_live_videos.php"><i
@@ -48,13 +48,12 @@ $username = $_SESSION['username'];
                             News
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" data-toggle="modal" data-target="#newsModal"
+                            <a class="dropdown-item" href='add_news.php'
                                 style="cursor:pointer"><i class="fa-solid fa-square-plus"></i>&nbsp;Add News</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="view_news.php"><i class="fa-solid fa-newspaper"></i>&nbsp;All
                                 News</a>
                         </div>
-                        <?php include "add_news_modal.php"?>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="btn-group">
@@ -63,7 +62,7 @@ $username = $_SESSION['username'];
                             Fixtures
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href='add_fixtures.php']
+                            <a class="dropdown-item" href='add_fixtures.php'
                                 style="cursor:pointer"><i class="fa-solid fa-square-plus"></i>&nbsp;Add Fixture</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="view_fixtures.php"><i

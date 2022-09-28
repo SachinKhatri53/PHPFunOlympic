@@ -3,6 +3,7 @@
 if(isset($_POST['btn-reset'])){
     if(recordCount('password_reset_request')==0){
         if(request_password_reset($_SESSION['email'])){
+            record_activity("<strong>".$_SESSION['username']. "</strong> requested for password reset", $_SESSION['ip_address'], $_SESSION['country_name']);
             $request_message="
             <div class='alert alert-success alert-dismissible fade show' role='alert'>
                 Your request has been submitted successfully. You'll receive your new password through email.
@@ -61,6 +62,7 @@ if(isset($_POST['change_password'])){
     if(empty($error)){
         
         if(change_password($_SESSION['username'], $new_password)){
+            record_activity('<strong>'.$_SESSION['username'].'</strong> changed password', $_SESSION['ip_address'], $_SESSION['country_name']);
             $upload_message = "Password has been changed successfully.";
             $message_color ="text-success";
         }
@@ -146,7 +148,7 @@ if(isset($_POST['change_password'])){
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="passwordResetModalTitle">Thank You</h5>
+                <h5 class="modal-title" id="passwordResetModalTitle">Warning</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -156,9 +158,9 @@ if(isset($_POST['change_password'])){
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
                 <form action="" method='POST'>
-                    <button type="submit" class="btn btn-primary" name='btn-reset'>Confirm</button>
+                    <button type="submit" class="btn btn-primary btn-sm" name='btn-reset'>Confirm</button>
                 </form>
             </div>
         </div>

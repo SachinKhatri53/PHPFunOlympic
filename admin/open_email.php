@@ -16,7 +16,7 @@ if(isset($_GET['eid'])){
         $status   = $row['status'];
         $sent_date= $row['sent_date'];
     }
-    echo "<h6>$fullname<br>$email</h8>
+    echo "<h6>$fullname<br>$email</h6>
     <hr>
     <p class='text-center'>$message</p>
     <hr>

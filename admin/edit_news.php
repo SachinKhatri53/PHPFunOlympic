@@ -13,7 +13,9 @@ $uploaded_date = date('d-m-Y');
 if(isset($_POST['update_news'])){
     $news_title = $_POST['news_title'];
     $news_description = $_POST['news_description'];
-    $news_thumbnail = $_POST['news_thumbnail'];
+    $news_thumbnail = $_FILES(['news_thumbnail']['name']);
+    $news_thumbnail_temp   = escape($_FILES['news_thumbnail']['tmp_name']);
+    $ext = pathinfo($video_path, PATHINFO_EXTENSION);
     $news_category = $_POST['news_category'];
     $news_date = $_POST['news_date'];
     $news_time = $_POST['news_time'];
@@ -27,19 +29,19 @@ if(isset($_POST['update_news'])){
       ];
     
       if(empty($news_title)){
-        $fixture_error['title_error'] = 'Title cannot be empty.';
+        $news_error['title_error'] = 'Title cannot be empty.';
       }
       if(empty($news_date)){
-        $fixture_error['date_error'] = 'Please select date.';
+        $news_error['date_error'] = 'Please select date.';
       }
       if(empty($news_time)){
-        $fixture_error['time_error'] = 'Please select time.';
+        $news_error['time_error'] = 'Please select time.';
       }
       if(empty($news_description)){
-        $fixture_error['description_error'] = 'Description cannot be empty.';
+        $news_error['description_error'] = 'Description cannot be empty.';
       }
       if(empty($news_thumbnail)){
-        $fixture_error['thumbnail_error'] = 'Please select a thumbnail.';
+        $news_error['thumbnail_error'] = 'Please select a thumbnail.';
       }
 
       foreach ($news_error as $key => $value){
@@ -49,7 +51,7 @@ if(isset($_POST['update_news'])){
     }
     if(empty($news_error)){
         if(edit_news($nid, $news_title, $news_description, $news_thumbnail, $news_category, $uploaded_date, $uploaded_time)){
-          
+            copy($video_path_temp, "../videos/".time().$video_path);
             $news_update_message = "News has been updated successfully";
             $news_update_message_color ="text-success";
         }
@@ -83,23 +85,38 @@ while($row = mysqli_fetch_assoc($select_query)){
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" name="news_title" id="" class="form-control" value="<?php echo $db_news_title ?>">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($news_error['title_error']) ? $news_error['title_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="news_description">Description</label>
                         <textarea name="news_description" class="form-control" id="" cols="30" rows="5"><?php echo $db_news_description ?></textarea>
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($news_error['description_error']) ? $news_error['description_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="image">Thumbnail</label>
                         <img src="../images/<?php echo $db_news_thumbnail ?>" alt="" width="100%" height="380px" style="object-fit: cover;">
                         <input type="file" name="news_thumbnail" id="" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($news_error['upload_error']) ? $news_error['upload_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="news_date">Date</label>
                         <input type="date" name="news_date" id="" value="<?php echo $db_news_date ?>" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($news_error['date_error']) ? $news_error['date_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="news_time">Time</label>
                         <input type="time" name="news_time" value="<?php echo $db_news_time ?>" id="" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($news_error['time_error']) ? $news_error['time_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <label for="category">Category</label>
@@ -119,6 +136,9 @@ while($row = mysqli_fetch_assoc($select_query)){
                             }
                         ?>
                         </select>
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($news_error['category_error']) ? $news_error['category_error'] : '' ?>
+                    </p>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Update" name="update_news" class="btn btn-sm btn-block btn-primary">

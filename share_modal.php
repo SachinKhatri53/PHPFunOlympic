@@ -2,10 +2,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <div class="modal fade" id="shareModal" tabindex="-1" style="" role="dialog" aria-labelledby="shareModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document" style="position:absolute;top:50%;left:30%;width:100%;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newsModalLabel">Extremely Sorry</h5>
+                <h5 class="modal-title" id="newsModalLabel">Share video</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

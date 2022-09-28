@@ -1,8 +1,7 @@
 <?php include "db.php" ?>
 <?php
+ob_start();
 session_start();
-
-
 //-------------------  -------------------
 function redirect($location){
     return header("Location: " . $location);
@@ -55,16 +54,24 @@ function email_exists($email){
 
 //------------------- registers new user -------------------
 function register_user($fullname, $phone, $nationality, $email, $username, $password){
+    $ip_address = mt_rand(0, 255) . "." . mt_rand(0, 255) . "." . mt_rand(0, 255) . "." . mt_rand(0, 255);
+    $ip_data = @json_decode(file_get_contents(
+        "http://www.geoplugin.net/json.gp?ip=" . $ip_address));
+    $country_name = $ip_data->geoplugin_countryName;
+    if(!$country_name){
+        $country_name = "Nepal";
+    }
     global $connection;
     date_default_timezone_set("Asia/Kathmandu");
     $date=date('d-m-Y');
     $status='inactive';
     $is_admin=0;
+    $last_login = "N/A";
     $verification_key = md5(time().$username);
     $profile_pic = 'profile.png';
     $password = password_hash($password, PASSWORD_BCRYPT, array('cost'=>12));
-    $stmt = mysqli_prepare($connection, "INSERT INTO users(fullname, phone, nationality, email, profile_image, username, password, status, registered_date, is_admin) VALUES(?,?,?,?,?,?,?,?,?,?) ");
-    mysqli_stmt_bind_param($stmt, 'ssssssssss', $fullname, $phone, $nationality, $email, $profile_pic, $username, $password, $status, $date, $is_admin);
+    $stmt = mysqli_prepare($connection, "INSERT INTO users(fullname, phone, nationality, email, profile_image, username, password, status, registered_date, is_admin,last_login) VALUES(?,?,?,?,?,?,?,?,?,?,?) ");
+    mysqli_stmt_bind_param($stmt, 'sssssssssss', $fullname, $phone, $nationality, $email, $profile_pic, $username, $password, $status, $date, $is_admin, $last_login);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     if($stmt){
@@ -83,13 +90,26 @@ function register_user($fullname, $phone, $nationality, $email, $username, $pass
         <body>
         <h2>Dear $fullname,</h2>
         <p>Thank you for requesting user registration. Please click link given below to activate your user account.</p>
-        <center><a href='http://localhost:8080/FunOlympicPHP/verify_email.php?email=$email'>Verify</a><center>
+        <center><a href='http://localhost:8080/FunOlympicPHP/verify_email.php?email=$email&ip_address=$ip_address&country_name=$country_name'>Verify</a><center>
+        <br>
+    <p style='text-align:center'>
+    Address<br>
+    Edinburgh Building, Chester Rd,<br>Sunderland SR1 3SD,<br>United Kingdom
+    </p>
+    <p style='text-align:center'>
+    Contact: +441915153000<br>
+    Email: info.funolympic@gmail.com
+    </p>
+    <br>
+    <p style='color:red'>
+    CONFIDENTIALITY NOTICE: This transmittal is a confidential communication or may otherwise be privileged. If you are not the intended recipient, you are hereby notified that you have received this transmittal in error and that any review, dissemination, distribution or copying of this transmittal is strictly prohibited. If you have received this communication in error, please notify this office, and immediately delete this message and all its attachments, if any.
+    </p>
         </body>
         </html>";
         
         mail($email, $subject, $message, $headers);
+        record_activity("Registration confirmation link sent to <strong>".$email."</strong>", $ip_address, $country_name);
 
-        echo "<script type='text/javascript'> window.open('thankyou.php?email=$email', '_blank')</script>";
         return true;
     }
 }
@@ -111,8 +131,16 @@ function notVerifiedUser($username){
 
 //-------------------  -------------------
 function login_user($username, $password){
+    date_default_timezone_set("Asia/Kathmandu");
+    $date=date('d-m-Y');
+    $ip_address = mt_rand(0, 255) . "." . mt_rand(0, 255) . "." . mt_rand(0, 255) . "." . mt_rand(0, 255);
+    $ip_data = @json_decode(file_get_contents(
+        "http://www.geoplugin.net/json.gp?ip=" . $ip_address));
+    $country_name = $ip_data->geoplugin_countryName;
+    if(!$country_name){
+        $country_name = "Nepal";
+    }
     global $connection;
-    
     $query = "SELECT * FROM users WHERE (email = '{$username}' OR username = '{$username}') AND status = 'active'";
     $select_user = mysqli_query($connection, $query);
     
@@ -123,16 +151,22 @@ function login_user($username, $password){
     $db_password = $row ['password'];
     $is_admin = $row['is_admin'];
         if (password_verify($password, $db_password)) {
+            mysqli_query($connection, "UPDATE users SET last_login='$date' WHERE uid = $db_uid");
         $_SESSION['uid'] = $db_uid;
         $_SESSION['username'] = $db_username;
         $_SESSION['email'] = $db_email;
         $_SESSION['logged_in'] = "logged_in";
+        $_SESSION['ip_address'] = $ip_address;
+        $_SESSION['country_name'] = $country_name;
         if($is_admin == 0){
+            record_activity('User logged in as <strong>'.$username.'</strong>', $ip_address, $country_name);
             redirect("home.php");
         }
         else{
+            record_activity('Admin logged in as <strong>'.$username.'</strong>', $ip_address, $country_name);
             redirect("admin/index.php");
         }
+        return true;
         }
     }
     
@@ -277,7 +311,7 @@ function fetch_fixtures(){
         $fixture_countries     = $row['fixture_countries']; 
         $fixture_date     = $row['fixture_date'];       
         $fixture_time     = $row['fixture_time'];
-        echo "<div class='col-md-3' style='margin-bottom:50px'>
+        echo "<div class='col-4 col-sm-3' style='margin-bottom:50px'>
                 <div class='card border-success'>
                     <div class='card-header'>
                         <small class='text-muted'>Date:$fixture_date
@@ -299,6 +333,10 @@ function fixtures_by_category($category_name){
     global $connection;
     $query = "SELECT * FROM fixtures WHERE fixture_category = '$category_name'";
     $select_fixtures = mysqli_query($connection, $query);
+    $count = mysqli_num_rows($select_fixtures);
+    if($count<1){
+        echo "<p class='text-danger'>No fixtures on <strong>$category_name</strong> available</p>" ;
+    }
     while($row = mysqli_fetch_assoc($select_fixtures)) {
         
         $fid                = $row['fid'];
@@ -326,12 +364,16 @@ function fixtures_by_category($category_name){
 }
 
 //-------------------  -------------------
-function fixtures_by_country($country_name){
+
+function fixtures_by_countries($country_name){
     global $connection;
     $query = "SELECT * FROM fixtures WHERE fixture_countries LIKE '%$country_name%'";
     $select_fixtures = mysqli_query($connection, $query);
-    while($row = mysqli_fetch_assoc($select_fixtures)) {
-        
+    $count = mysqli_num_rows($select_fixtures);
+    if($count<1){
+        echo "<p class='text-danger'>No fixtures of <strong>$country_name</strong> available</p>" ;
+    }
+    while($row=mysqli_fetch_assoc($select_fixtures)){
         $fid               = $row['fid'];
         $fixture_title     = $row['fixture_title'];
         $fixture_category  = $row['fixture_category']; 
@@ -475,31 +517,7 @@ function send_mail($email, $phone, $fullname, $content){
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     if($stmt){
-    $subject="Enquery through contact form";
-        $from = "noreply@ismt.com";
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $headers .= 'From: '.$from."\r\n".
-        'Reply-To: '.$from."\r\n" .
-        'X-Mailer: PHP/' . phpversion();
-        $message ="
-        <html>
-        <head>
-        <title>Email Verification</title>
-        </head>
-        <body>
-        <p><strong>Fullname: </strong>$fullname</p>
-        <p><strong>Email: </strong>$email</p>
-        <p><strong>Contact Number: </strong>$phone</p>
-        <p><strong>Message: </strong>$content</p>
-        </body>
-        </html>";
-        if(mail($email, $subject, $message, $headers)){
-            return true;
-        }
-        else{
-            return false;
-        }
+    return true;
     }
 }
 
@@ -508,13 +526,22 @@ function request_password_reset($email){
     global $connection;
     date_default_timezone_set("Asia/Kathmandu");
     $date=date('d-m-Y');
-    $stmt = mysqli_prepare($connection, "INSERT INTO password_reset_request(email, requested_date) VALUES(?,?,?) ");
-    mysqli_stmt_bind_param($stmt, 'sss', $email, $date);
+    $stmt = mysqli_prepare($connection, "INSERT INTO password_reset_request(email, requested_date) VALUES(?,?) ");
+    mysqli_stmt_bind_param($stmt, 'ss', $email, $date);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     if($stmt){
         return true;
     }
+}
+
+//-------------------  -------------------
+function has_requested_reset_password($email){
+    global $connection;
+    $query = "SELECT * FROM password_reset_request WHERE email = '$email'";
+    $select_from_table = mysqli_query($connection, $query);
+    $result = mysqli_num_rows($select_from_table);
+    return $result;
 }
 
 //-------------------  -------------------
@@ -550,3 +577,56 @@ function change_password($username, $new_password){
         }
         return true;
 }
+
+//------------------- change_password_link -------------------
+function send_change_password_link($email){
+    $subject="Change Password Link";
+    $from = "noreply@ismt.com";
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= 'From: '.$from."\r\n".
+    'Reply-To: '.$from."\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+    $message ="
+    <html>
+    <head>
+    <title>Change Password</title>
+    </head>
+    <body>
+    <p style='text-align:center'>Kindly follow the link to change your password.</p>
+    <center><a href='http://localhost:8080/FunOlympicPHP/forgot_password_process.php?email=$email'><button style='background:#009a49;border:none;color:white;padding:5px 10px;border-radius:5px;cursor:pointer'>Change Password</button></a><center>
+    <br>
+    <p style='text-align:center'>
+    Address<br>
+    Edinburgh Building, Chester Rd,<br>Sunderland SR1 3SD,<br>United Kingdom
+    </p>
+    <p style='text-align:center'>
+    Contact: +441915153000<br>
+    Email: info.funolympic@gmail.com
+    </p>
+    <br>
+    <p style='color:red'>
+    CONFIDENTIALITY NOTICE: This transmittal is a confidential communication or may otherwise be privileged. If you are not the intended recipient, you are hereby notified that you have received this transmittal in error and that any review, dissemination, distribution or copying of this transmittal is strictly prohibited. If you have received this communication in error, please notify this office, and immediately delete this message and all its attachments, if any.
+    </p>
+    </body>
+    </html>";
+    
+    mail($email, $subject, $message, $headers);
+    return true;
+}
+
+//-------------------  -------------------
+function record_activity($activity, $ip_address, $country){
+    date_default_timezone_set("Asia/Kathmandu");
+    $date=date('d-m-Y');
+    
+    global $connection;
+    $stmt = mysqli_prepare($connection, "INSERT INTO activity_log(activity, date, country, ip_address) VALUES(?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, 'ssss', $activity, $date, $country, $ip_address);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    if($stmt){
+        return true;
+    }
+}
+?>
