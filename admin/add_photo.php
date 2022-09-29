@@ -1,4 +1,6 @@
+<title>Admin: Add new photo</title>
 <?php include "admin_header.php" ?>
+
 <?php
 $upload_date = date('d-m-Y');
 $upload_time = date("h:i:sa");
@@ -51,7 +53,7 @@ if(isset($_POST['upload_photo'])){
 </div>
 <div class="col-md-9" id="main-container">
     <div class="row">
-        <div class="col-md-4"></div>
+        <div class="col-md-2"></div>
         <div class="col-md-8">
             <h4>Add New Photo</h4>
             <hr>

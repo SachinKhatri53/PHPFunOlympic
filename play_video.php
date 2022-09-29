@@ -256,13 +256,13 @@ $time = date("h:i:sa");
                                         <i <?php if (userLiked($row['vid'])): ?> class="fa fa-thumbs-up like-btn"
                                             <?php else: ?> class="fa fa-thumbs-o-up like-btn" <?php endif ?>
                                             data-id="<?php echo $row['vid'] ?>"></i>
-                                        <span class="likes"><?php echo getLikes($row['vid']); ?></span>
+                                        <span class="likes" id="likes"><?php echo getLikes($row['vid']); ?></span>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <i <?php if (userDisliked($row['vid'])): ?>
                                             class="fa fa-thumbs-down dislike-btn" <?php else: ?>
                                             class="fa fa-thumbs-o-down dislike-btn" <?php endif ?>
                                             data-id="<?php echo $row['vid'] ?>"></i>
-                                        <span class="dislikes"><?php echo getDislikes($row['vid']); ?></span>
+                                        <span class="dislikes" id="dislikes"><?php echo getDislikes($row['vid']); ?></span>
                                     </div>
                                     <div class="col-3">
                                         <i class="fa fa-eye" aria-hidden="true"></i> <?php echo $row['views']?>
@@ -280,11 +280,11 @@ $time = date("h:i:sa");
                                 update_view_count($row['views'], $vid);
                                 if(isset($_POST['favorite'])){
                                 add_to_favorite($uid, $vid);
-                                record_activity('Added to favorite videos by <strong>'.$username.'</strong>');
+                                record_activity('Added to favorite videos by <strong>'.$username.'</strong>', $_SESSION['ip_address'], $_SESSION['country_name']);
                                 }
                                 if(isset($_POST['undo-favorite'])){
                                     remove_from_favorite($uid, $vid);
-                                    record_activity('Removed from favorite videos by <strong>'.$username.'</strong>');
+                                    record_activity('Removed from favorite videos by <strong>'.$username.'</strong>', $_SESSION['ip_address'], $_SESSION['country_name']);
                                 }
 
                         if(is_favorite_video($uid,$vid)==0){
@@ -373,7 +373,7 @@ $time = date("h:i:sa");
 if(isset($_POST['comment'])){
     $content = $_POST['content'];
     add_comment($_SESSION['uid'], $vid, $content, $date, $time);
-    record_activity('New comment added by <strong>'.$username.'</strong>');
+    record_activity('New comment added by <strong>'.$username.'</strong>', $_SESSION['ip_address'], $_SESSION['country_name']);
     
 }?>
                     <form method="post" role="form">
@@ -563,7 +563,6 @@ if(isset($_POST['comment'])){
             });
         });
         </script>
-
         <?php 
         include "share_modal.php";
         include "footer.php" ?>

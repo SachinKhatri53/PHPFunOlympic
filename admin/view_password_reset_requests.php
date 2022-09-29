@@ -1,18 +1,5 @@
 <title>Admin: View All Password Reset Requests</title>
-<?php include "admin_header.php";
-if(isset($_POST['btn-reset'])){
-        if(request_password_reset($email)){
-            $request_message="
-            <div class='alert alert-success alert-dismissible fade show' role='alert'>
-            <h4 class='alert-heading'Reset successful</h4>
-               Email has been sent to $email.
-            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                <span aria-hidden='true'>&times;</span>
-            </button>
-            </div>";
-        }
-}
-?>
+<?php include "admin_header.php"; ?>
 <style>
     /* .modal-backdrop {
   z-index: -1;
@@ -61,6 +48,22 @@ if(isset($_POST['btn-reset'])){
                             data-target='#passwordResetModal' class='btn btn-danger btn-sm'>Reset</p></td>
                             </tr</tbody>
                         </table>"?>
+                        <?php 
+if(isset($_POST['btn-reset'])){
+        if(send_mail_after_password_reset($email)){
+            record_activity('Password link sent to <strong>' . $email . '</strong>', $_SESSION['ip_address'], $_SESSION['country_name']);
+            $request_message="
+            <div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <h4 class='alert-heading'Reset successful</h4>
+               Email has been sent to $email.
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+            </button>
+            </div>";
+            redirect('view_password_reset_requests.php');
+        }
+}
+?>
     <div class="modal fade" id="passwordResetModal" tabindex="100" role="dialog"
         aria-labelledby="passwordResetModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

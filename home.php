@@ -24,12 +24,11 @@ include "header.php";
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-8">
-        <button class="btn-filter-videos">Most Liked</button>
-        <button class="btn-filter-videos">Trending</button>
-        <button class="btn-filter-videos">Recommended</button>
-        <button class="btn-filter-videos">Most viewed</button>
-        <button class="btn-filter-videos">Most searched</button>
-        <button class="btn-filter-videos">More categories</button>
+        <a href="filtered_video.php?most_liked" class="btn-filter-videos">Most Liked</a>
+        <a href="filtered_video.php?favorite" class="btn-filter-videos">Favorite</a>
+        <a href="filtered_video.php?recommended" class="btn-filter-videos">Recommended</a>
+        <a href="filtered_video.php?most_viewed" class="btn-filter-videos">Most viewed</a>
+        <a href="video.php" class="btn-filter-videos">More categories</a>
     </div>
 </div>
 

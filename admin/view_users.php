@@ -44,7 +44,7 @@ if(isset($_GET['status'])){
                     <tbody>
                     <?php
                     changeStatusToInactive();
-                    changeStatusToAactive();
+                    changeStatusToActive();
                     if(empty($status)){
                         $query = "SELECT * FROM users WHERE is_admin=0";  
                     }
@@ -67,10 +67,10 @@ if(isset($_GET['status'])){
                         echo "<td>$status</td>";
                         echo "<td>$last_login</td>";
                         if($status=='active'){
-                            echo "<td><a href='view_users.php?inactive=$uid' class='btn btn-danger btn-sm'>Deactivate</a></td>";
+                            echo "<td><a href='view_users.php?inactive=$uid&name=$username' class='btn btn-danger btn-sm'>Deactivate</a></td>";
                         }
                         else{
-                            echo "<td><a href='view_users.php?active=$uid' class='btn btn-success btn-sm'>Activate</a></td>";
+                            echo "<td><a href='view_users.php?active=$uid&name=$username' class='btn btn-success btn-sm'>Activate</a></td>";
                         }    
                         echo "</tr>";
                         }

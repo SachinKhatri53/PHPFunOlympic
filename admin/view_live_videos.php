@@ -28,9 +28,8 @@
                             </iframe>
                             <div class='card-footer'>
                                 <small class='text-muted'>Uploaded: $uploaded_date</small>
-                                <a href='' style='margin-left:5px;font-size:12px; color:orange' data-toggle='tooltip' data-placement='bottom' title='view'><i class='fa-solid fa-eye'></i></a>
-                                <a href='' style='font-size:12px; color:blue' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a>
-                                <a href='view_live_videos.php?delete=$lvid' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" style='font-size:12px; color:Red' data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a>
+                                <a href='edit_live_video.php?edit=$lvid' style='font-size:12px; color:blue' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a>
+                                <a href='view_live_videos.php?delete=$lvid&title=$video_title' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" style='font-size:12px; color:Red' data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a>
                             </div>
                         </div>
                     </div>";

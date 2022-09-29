@@ -18,9 +18,9 @@ if(isset($_POST['btn-proceed'])){
 	}
 	
 	if(empty($error)){   
-        if(send_change_password_link($email)){
+        if(request_password_reset($email)){
             $success_message="<div class='alert alert-success alert-dismissible fade show' role='alert'>
-            Your request has been submitted successfully. Check your mail for change password link.
+            Your request has been submitted successfully. You'll be provided with password reset link througn your mail.
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'>&times;</span>
         </button>

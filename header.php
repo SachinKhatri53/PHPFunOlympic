@@ -66,6 +66,9 @@ $username = $_SESSION['username'];
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="filtered_video.php?favorite">SAVED VIDEOS</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="news.php">NEWS</a>
                 </li>
                 <li class="nav-item">
@@ -76,6 +79,9 @@ $username = $_SESSION['username'];
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="contact.php">CONTACT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger btn-sm" href="video.php?live">LIVE VIDEOS</a>
                 </li>
 
             </ul>

@@ -72,7 +72,7 @@ if(isset($_GET['edit'])){
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h4>Edit Fixtures</h4>
+            <h4>Edit Fixture</h4>
             <hr>
             <p class="<?php echo isset($fixture_upload_message_color) ? $fixture_upload_message_color : ''?>">
                 <?php echo isset($fixture_upload_message) ? $fixture_upload_message : ''?></p>

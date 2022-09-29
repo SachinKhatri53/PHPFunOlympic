@@ -1,10 +1,13 @@
 <?php
 if(isset($_GET['category'])){
+
     $category_name = $_GET['category'];
 }
 if(isset($_GET['country'])){
     $country_name = $_GET['country'];
-}
+}?>
+<title>Fixtures</title>
+<?php 
 include "header.php";
 ?>
 <style>
@@ -27,16 +30,7 @@ include "header.php";
             }
             
             else{
-                
-                if(isset($country_name)){
-                    fixtures_by_countries($country_name);
-                }
-                if(isset($category_name)){
-                    fixtures_by_category($category_name);
-                }
-                
-                
-                // fixtures_by_category($category_name);
+                fixtures_by_category($category_name);
             }
              ?>
         </div>

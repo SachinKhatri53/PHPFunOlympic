@@ -44,7 +44,7 @@
                             <td>$uploaded_date</td>
                             <td>$uploaded_time</td>
                             <td><a href='edit_news.php?edit=$nid&title=$news_title' style='color:blue' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a></td>
-                            <td><a href='view_news.php?delete=$nid'  style='color:Red' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a></td>
+                            <td><a href='view_news.php?delete=$nid&title=$news_title'  style='color:Red' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a></td>
                             </tr>";
                             }
                             echo "</tbody>

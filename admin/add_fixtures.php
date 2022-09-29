@@ -1,8 +1,6 @@
 <title>Admin: Add New Fixture</title>
 <?php include "admin_header.php" ?>
 <?php
-// $upload_date = date('d-m-Y');
-// $upload_time = date("h:i:sa");
 if(isset($_POST['add_fixture'])){
   $fixture_title = escape($_POST['fixture_title']);
   $fixture_date = escape($_POST['fixture_date']);

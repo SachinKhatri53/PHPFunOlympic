@@ -1,11 +1,10 @@
-<title>Admin: View All Highlights</title>
+<title>Admin: Edit Video</title>
 <?php include "admin_header.php" ?>
 <?php 
 if(isset($_GET['edit'])){
     $vid = $_GET['edit'];
 }
-    $upload_date = date('d-m-Y');
-    $upload_time = date("h:i:sa");
+
     $allowed = array('mp4', 'mov', 'avi');
 if(isset($_POST['update_video'])){
     
@@ -15,12 +14,16 @@ if(isset($_POST['update_video'])){
     $tags = escape($_POST['tags']);
     $video_path        = escape($_FILES['video']['name']);
     $video_path_temp   = escape($_FILES['video']['tmp_name']);
+    $upload_date = escape($_POST['date']);
+    $upload_time = escape($_POST['time']);
     $ext = pathinfo($video_path, PATHINFO_EXTENSION);
     $error = [
         'upload_error'=> '',
         'title_error'=> '',
         'tag_error'=> '',
-        'description_error'=> '',         
+        'description_error'=> '', 
+        'date_error'=> '', 
+        'time_error'=> '',         
     ];
     if($video_path==""){
         $error['upload_error'] = 'Please select a video.';
@@ -33,6 +36,12 @@ if(isset($_POST['update_video'])){
     }
     if($description==""){
         $error['description_error'] = 'Description cannot be empty.';
+    }
+    if($upload_date==""){
+        $error['date_error'] = 'Please select date.';
+    }
+    if($upload_time==""){
+        $error['time_error'] = 'Please select time.';
     }
     if(!($video_path=="") && !in_array($ext, $allowed)){
         $error['upload_error'] = 'Invalid video format. Available format(mp4, mov, avi)';
@@ -122,6 +131,20 @@ if(isset($_POST['update_video'])){
                         <?php echo isset($error['upload_error']) ? $error['upload_error'] : '' ?>
                     </p>
                 </div>
+                <div class="form-group">
+                        <label for="live_date">Date</label>
+                        <input type="date" name="date" id="" value="<?php echo $db_upload_date ?>" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($error['date_error']) ? $error['date_error'] : '' ?>
+                    </p>
+                    </div>
+                    <div class="form-group">
+                        <label for="live_time">Time</label>
+                        <input type="time" name="time" value="<?php echo $db_upload_time ?>" id="" class="form-control">
+                        <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($error['time_error']) ? $error['time_error'] : '' ?>
+                    </p>
+                    </div>
                 <div class="form-group">
                     <label for="tags">Tags</label>
                     <input type="text" name="tags" id="" class="form-control" value="<?php echo $db_video_tags ?>">

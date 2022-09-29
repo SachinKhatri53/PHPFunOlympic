@@ -57,7 +57,7 @@
                             <td>$comment</td>
                             <td>$uploaded_date</td>
                             <td>$uploaded_time</td>
-                            <td><a href='view_comments.php?delete=$comment_id'  style='color:red;' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a></td>
+                            <td><a href='view_comments.php?delete=$comment_id&title=$video_title'  style='color:red;' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a></td>
                             </tr>";
                             }
                             echo "</tbody>

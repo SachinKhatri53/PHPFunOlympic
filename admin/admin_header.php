@@ -83,7 +83,7 @@ $username = $_SESSION['username'];
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../home.php" class="nav-link">To The Site</a>
+                        <a href="../home.php" class="nav-link" target="_blank">To The Site</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="profile.php">

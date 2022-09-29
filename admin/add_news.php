@@ -1,8 +1,9 @@
 <title>Admin: Add New News</title>
 <?php include "admin_header.php" ?>
 <?php
-$upload_date = date('d-m-Y');
-$upload_time = date("h:i:sa");
+date_default_timezone_set("Asia/Kathmandu");
+$upload_date = date('Y-m-d');
+$upload_time = date("H:i");
 $allowed_image_ext = array('jpg', 'jpeg', 'png');
 if(isset($_POST['add_news'])){
   $news_title = escape($_POST['news_title']);
@@ -78,7 +79,7 @@ if(empty($news_error)){
                     </div>
                     <div class="form-group">
                         <label for="youtube_url">Description</label>
-                        <input type="text" name="news_description" id="" class="form-control">
+                        <textarea class="form-control" name="news_description" id="" cols="30" rows="4"></textarea>
                         <p class="text-danger" style="font-size:12px">
                         <?php echo isset($news_error['description_error']) ? $news_error['description_error'] : '' ?>
                     </p>

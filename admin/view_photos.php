@@ -1,19 +1,25 @@
 <?php include "admin_header.php" ?>
 <link rel="stylesheet" href="../css/gallery.css">
-<link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
+<!-- <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css"> -->
+<link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
 
-<style>
-    .responsive {
-width: 20%;
-}
+
 </style>
 <div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-9" id="main-container">
     <h4 class="text-center">Gallery</h4>
-    <div class="row">
-        <?php
+
+    <div class="row justify-content-center">
+        <div class="container gallery-container">
+            <div class="tz-gallery">
+                <div class="row">
+                    <?php
+        if(recordCount('photos')==0){
+            echo"<h5 class='text-danger'>No photos</h5>";
+        }
+        else{
         deletePhotos();
         $sql = "SELECT * FROM photos";
         $rs_result = mysqli_query ($connection, $sql);
@@ -25,29 +31,24 @@ width: 20%;
             $upload_date    = $row['upload_date'];
             $upload_time    = $row['upload_time'];
     
-            echo "<div class='responsive' style='box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'>
-                    <div class='gallery'>
-                        <a class='image' href='../images/$image_path ' title='$caption'>
-                            <img src='../images/$image_path' alt='$caption'>
-                        </a>
-                    </div>
-                    <a href='edit_photo.php?edit=$pid' style='color:blue; text-align:right' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a>
-                    <a href='view_photos.php?delete=$pid' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" style='text-align:right; color:Red' data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a>
+            echo "
+            <div class='col-sm-12 col-md-4'>
+                    <a class='lightbox' href='../images/$image_path'>
+                        <img src='../images/$image_path' alt='$caption'>
+                    </a>
                 </div>
-                <script>
-                    $('.row').magnificPopup({
-                        delegate: '.image',
-                        type: 'image',
-                        gallery: {
-                            enabled: true
-                        }
-                    });
-                </script>";
-                
-        }
+                <a href='edit_photo.php?edit=$pid' style='font-size:20px; color:blue' data-toggle='tooltip' data-placement='bottom' title='edit'><i class='fa-solid fa-pen-to-square'></i></a>
+                    <a href='view_photos.php?delete=$pid&title=$caption' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" style='font-size:20px; color:Red' data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a>
+                ";
+        }}
         ?>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="../js/jquery.magnific-popup.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+    baguetteBox.run('.tz-gallery');
+    </script>
 <?php include "admin_footer.php" ?>

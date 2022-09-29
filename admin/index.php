@@ -5,26 +5,24 @@
 </div>
 <div class="col-md-9" style="margin-top: 60px;
      position: absolute; left:25%; padding: 20px;">
-    <div class="row">
+    <div class="row" style="padding:20px">
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa-solid fa-tower-broadcast fa-4x"></i>
+                            <i class="fa-solid fa-tower-broadcast fa-3x" style="color:#dc3545"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <!--                                    admin posts count-->
                             <div class='huge'><?php echo $count_posts = recordCount('live_videos') ?></div>
-
                             <div>Live Videos</div>
                         </div>
                     </div>
                 </div>
-                <a href="posts.php">
+                <a href="view_live_videos.php">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-left" style="color:green">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right" style="color:green"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
@@ -35,18 +33,18 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa-solid fa-video fa-4x"></i>
+                            <i class="fa-solid fa-video fa-3x" style="color:green"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class='huge'><?php echo $count_comments = recordCount('videos') ?></div>
-                            <div>Highlights</div>
+                            <div>Uploaded Videos</div>
                         </div>
                     </div>
                 </div>
-                <a href="comments.php">
+                <a href="view_videos.php">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-left" style="color:green">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right" style="color:green"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
@@ -57,7 +55,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-user fa-4x"></i>
+                            <i class="fa fa-user fa-3x" style="color:blue"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class='huge'><?php echo $count_users = recordCount('users') ?></div>
@@ -65,10 +63,10 @@
                         </div>
                     </div>
                 </div>
-                <a href="users.php">
+                <a href="view_users.php">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-left" style="color:green">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right" style="color:green"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
@@ -79,18 +77,18 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-list fa-4x"></i>
+                            <i class="fa fa-list fa-3x" style="color:grey"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class='huge'><?php echo $count_categories = recordCount('categories') ?></div>
-                            <div>Categories</div>
+                            <div>Sports</div>
                         </div>
                     </div>
                 </div>
-                <a href="categories.php">
+                <a href="view_categories.php">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-left" style="color:green">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right" style="color:green"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
@@ -112,7 +110,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $select_query = mysqli_query($connection, "SELECT * FROM activity_log LIMIT 20");
+                    $select_query = mysqli_query($connection, "SELECT * FROM activity_log");
                     while($row = mysqli_fetch_assoc($select_query)){
                         $date = $row['date'];
                         $activity = $row['activity'];

@@ -18,6 +18,7 @@ if(isset($_GET['category'])){
         </form>
     </div>
 </div>
+
 <div class="row justify-content-center" style="color:#ea540a;">
     <h2>
         <?php
@@ -29,13 +30,17 @@ if(isset($_GET['category'])){
                 echo "Live Videos";   
             }
             else{
-                echo "Highlights";
+                echo "Uploaded Videos";
+            
             }
         }
         ?>
     </h2>
 </div>
-
+<?php 
+if(empty(isset($_GET['live']))){
+    include "category_filter.php";  
+} ?>
 <div class="row" style="padding:20px 50px">
     <?php
     if(empty($category_name)){

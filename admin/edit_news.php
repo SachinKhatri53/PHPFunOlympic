@@ -6,16 +6,14 @@
 if(isset($_GET['edit'])){
     $nid = $_GET['edit'];
 }
-$uploaded_date = date('d-m-Y');
-    $uploaded_time = date("h:i:sa");
     $allowed = array('jpg', 'jpeg', 'png');
 //update news
 if(isset($_POST['update_news'])){
     $news_title = $_POST['news_title'];
     $news_description = $_POST['news_description'];
-    $news_thumbnail = $_FILES(['news_thumbnail']['name']);
-    $news_thumbnail_temp   = escape($_FILES['news_thumbnail']['tmp_name']);
-    $ext = pathinfo($video_path, PATHINFO_EXTENSION);
+    $news_thumbnail = $_FILES['news_thumbnail']['name'];
+    $news_thumbnail_temp   = $_FILES['news_thumbnail']['tmp_name'];
+    $ext = pathinfo($news_thumbnail, PATHINFO_EXTENSION);
     $news_category = $_POST['news_category'];
     $news_date = $_POST['news_date'];
     $news_time = $_POST['news_time'];
@@ -50,8 +48,8 @@ if(isset($_POST['update_news'])){
         }
     }
     if(empty($news_error)){
-        if(edit_news($nid, $news_title, $news_description, $news_thumbnail, $news_category, $uploaded_date, $uploaded_time)){
-            copy($video_path_temp, "../videos/".time().$video_path);
+        if(edit_news($nid, $news_title, $news_description, time().$news_thumbnail, $news_category, $news_date, $news_time)){
+            copy($news_thumbnail_temp, "../images/".time().$news_thumbnail);
             $news_update_message = "News has been updated successfully";
             $news_update_message_color ="text-success";
         }
@@ -71,6 +69,8 @@ while($row = mysqli_fetch_assoc($select_query)){
     $db_news_description = $row['news_description'];
     $db_news_thumbnail = $row['news_thumbnail'];
     $db_news_category = $row['news_category'];
+    $db_news_date = $row['uploaded_date'];
+    $db_news_time = $row['uploaded_time'];
 }
 ?>
 
@@ -81,6 +81,10 @@ while($row = mysqli_fetch_assoc($select_query)){
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
+        <h4>Edit News</h4>
+            <hr>
+            <p class="<?php echo isset($news_update_message_color) ? $news_update_message_color : ''?>">
+                <?php echo isset($news_update_message) ? $news_update_message : ''?></p>
 <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="title">Title</label>
@@ -99,9 +103,9 @@ while($row = mysqli_fetch_assoc($select_query)){
                     <div class="form-group">
                         <label for="image">Thumbnail</label>
                         <img src="../images/<?php echo $db_news_thumbnail ?>" alt="" width="100%" height="380px" style="object-fit: cover;">
-                        <input type="file" name="news_thumbnail" id="" class="form-control">
+                        <input type="file" name="news_thumbnail" value="<?php echo $db_news_thumbnail ?>" id="" class="form-control">
                         <p class="text-danger" style="font-size:12px">
-                        <?php echo isset($news_error['upload_error']) ? $news_error['upload_error'] : '' ?>
+                        <?php echo isset($news_error['thumbnail_error']) ? $news_error['thumbnail_error'] : '' ?>
                     </p>
                     </div>
                     <div class="form-group">

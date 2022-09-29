@@ -28,7 +28,7 @@
                             </thead>
                             <tbody>";
                             
-                            // deleteEmails(); 
+                            deleteEmails(); 
                             $query = 'SELECT * FROM emails';
                             $select_emails = mysqli_query($connection, $query);
                             while($row = mysqli_fetch_assoc($select_emails)) {
@@ -50,7 +50,7 @@
                             if($status=='unread'){
                                 echo "<td><a href='open_email.php?eid=$eid' class='btn btn-primary btn-sm'>read</a></td>";
                             }
-                            echo"<td><a href='view_emails.php?delete=$eid'  style='color:red;' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a></td>
+                            echo"<td><a href='view_emails.php?delete=$eid&title=$fullname'  style='color:red;' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" data-toggle='tooltip' data-placement='bottom' title='delete'><i class='fa-solid fa-trash'></i></a></td>
                             </tr>";
                         }
                             echo "</tbody>

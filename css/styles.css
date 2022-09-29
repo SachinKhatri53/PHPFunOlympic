@@ -84,7 +84,15 @@ border: #030330 1px solid;
     margin-bottom: 10px;
 }
 .btn-filter-videos{
-    padding:4px 8px; background:#f2f2f2
+    border: 1px solid #357960;
+    text-decoration: none;
+    color:#357960;
+    padding:4px 8px; background:#ffffff;
+}
+.btn-filter-videos:hover{
+    color:#ffffff;
+    text-decoration: none;
+    background:#357960;
 }
 .section-heading{
     color:#009a49;

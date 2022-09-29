@@ -5,6 +5,7 @@
 <div class="col-md-9" id="main-container" style="padding:40px 100px; background:whitesmoke">
 <?php
 if(isset($_GET['eid'])){
+    update_email_to_read($_GET['eid']);
     $query_email = "SELECT * FROM emails WHERE eid = {$_GET['eid']}";
     $select_email = mysqli_query($connection, $query_email);
     while($row = mysqli_fetch_assoc($select_email)) {
@@ -23,7 +24,7 @@ if(isset($_GET['eid'])){
     <h6 class='text-right'>Contact: $phone</h6>
     <h6 class='text-right'>Sent date: $sent_date</h6>
     <h6 class='text-center'>
-    <a href='view_emails.php' class='btn btn-danger btn-sm'>Delete</a>
+    <a href='view_emails.php?delete=$eid&title=$fullname' class='btn btn-danger btn-sm' onClick=\"javascript: return confirm('Are you sure you want to delete?'); \">Delete</a>
     </h6>
     ";
 }

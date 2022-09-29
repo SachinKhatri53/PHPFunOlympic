@@ -156,14 +156,17 @@ function login_user($username, $password){
         $_SESSION['username'] = $db_username;
         $_SESSION['email'] = $db_email;
         $_SESSION['logged_in'] = "logged_in";
+        
+        if($is_admin == 0){
         $_SESSION['ip_address'] = $ip_address;
         $_SESSION['country_name'] = $country_name;
-        if($is_admin == 0){
             record_activity('User logged in as <strong>'.$username.'</strong>', $ip_address, $country_name);
             redirect("home.php");
         }
         else{
-            record_activity('Admin logged in as <strong>'.$username.'</strong>', $ip_address, $country_name);
+        $_SESSION['ip_address'] = "101.251.4.0";
+        $_SESSION['country_name'] = "Nepal";
+            record_activity('Admin logged in as <strong>'.$username.'</strong>', $_SESSION['ip_address'], $_SESSION['country_name']);
             redirect("admin/index.php");
         }
         return true;
@@ -311,7 +314,7 @@ function fetch_fixtures(){
         $fixture_countries     = $row['fixture_countries']; 
         $fixture_date     = $row['fixture_date'];       
         $fixture_time     = $row['fixture_time'];
-        echo "<div class='col-4 col-sm-3' style='margin-bottom:50px'>
+        echo "<div class='col-sm-3' style='margin-bottom:50px'>
                 <div class='card border-success'>
                     <div class='card-header'>
                         <small class='text-muted'>Date:$fixture_date
@@ -367,7 +370,8 @@ function fixtures_by_category($category_name){
 
 function fixtures_by_countries($country_name){
     global $connection;
-    $query = "SELECT * FROM fixtures WHERE fixture_countries LIKE '%$country_name%'";
+    echo "<script>alert('HI')</script>";
+    $query = "SELECT * FROM fixtures WHERE fixture_countries = 'Greece, Hungary'";
     $select_fixtures = mysqli_query($connection, $query);
     $count = mysqli_num_rows($select_fixtures);
     if($count<1){
@@ -412,27 +416,11 @@ function fetch_photos(){
         $upload_time    = $row['upload_time'];
 
         echo "
-        
-            <div class='image-column'>
-            <img src='images/$image_path' alt='$caption' data-toggle='modal' data-target='#imageModal'>
-            </div>
-        <div class='modal fade' id='imageModal' tabindex='-1' role='dialog' aria-labelledby='imageModalLabel'
-            aria-hidden='true'>
-            <div class='modal-dialog' role='document'>
-                <div class='modal-content'>
-                    <div class='modal-header'>
-                        <h5 class='modal-title' id='imageModalLabel'>$caption</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                            <span aria-hidden='true'>&times;</span>
-                        </button>
-
-                    </div>
-                    <div class='modal-body'>
-                        <img src='images/$image_path' alt='' style='width:100%; height:400px; object-fit:contain'>
-                    </div>
+        <div class='col-sm-12 col-md-4'>
+                    <a class='lightbox' href='images/$image_path'>
+                        <img src='images/$image_path' alt='$caption'>
+                    </a>
                 </div>
-            </div>
-        </div>
         ";
     }
 }
@@ -442,6 +430,10 @@ function fetch_photos_by_category($category_name){
     global $connection;
     $sql = "SELECT * FROM photos WHERE category_title='$category_name'";
     $rs_result = mysqli_query ($connection, $sql);
+    if(mysqli_num_rows($rs_result)==0){
+echo "<p class='text-danger'>No photos available for <strong>" . $category_name . "</strong></p>";
+    }
+    else{
     while ($row = mysqli_fetch_assoc($rs_result)) {
         $pid            = $row['pid'];
         $caption        = $row['caption'];
@@ -450,24 +442,15 @@ function fetch_photos_by_category($category_name){
         $upload_date    = $row['upload_date'];
         $upload_time    = $row['upload_time'];
 
-        echo "<div class='responsive' style='box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'>
-                <div class='gallery'>
-                    <a class='image' href='images/$image_path ' title='$caption'>
-                        <img src='images/$image_path' alt='$caption'>
-                    </a>
-                </div>
-            </div>
-            <script>
-                $('.row').magnificPopup({
-                    delegate: '.image',
-                    type: 'image',
-                    gallery: {
-                        enabled: true
-                    }
-                });
-            </script>";
+        echo "<div class='col-sm-12 col-md-4'>
+        <a class='lightbox' href='images/$image_path'>
+            <img src='images/$image_path' alt='$caption'>
+        </a>
+    </div>";
     }
 }
+}
+
 
 //-------------------  -------------------
 function commentsCount($table, $id){
