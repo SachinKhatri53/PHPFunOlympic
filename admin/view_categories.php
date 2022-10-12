@@ -31,7 +31,7 @@
                                 $category_title     = $row['category_title'];       
                                 echo "<tr>
                                 <td>$category_title</td>
-                                <td><a href='view_categories.php?delete=$cid&title=$category_title' class='btn btn-danger' onClick=\"javascript: return confirm('Are you sure you want to delete? All videos related to this category will also be deleted.'); \">Delete</a></td>
+                                <td><a href='view_categories.php?delete=$cid&title=$category_title' class='btn btn-danger' onClick=\"javascript: return confirm('Are you sure you want to delete? All contents associated to this category will also be deleted.'); \">Delete</a></td>
                                 </tr>";
                             }
                             echo "</tbody>

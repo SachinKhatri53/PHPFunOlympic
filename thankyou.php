@@ -1,4 +1,5 @@
-<?php include "functions.php";
+<?php 
+// include "functions.php";
 if(empty($_GET['email']) || $_GET['email'] == ''){
     redirect('index.php');
     die();
@@ -22,7 +23,6 @@ if(empty($_GET['email']) || $_GET['email'] == ''){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body style="padding-top:10%; background:aliceblue">
     <h3 class="text-center">We have sent verification link to <a href="http://mail.google.com/mail"
             target="_blank"><?php echo isset($_GET['email']) ? $_GET['email'] : ''?></a>.</h3>

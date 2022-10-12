@@ -130,7 +130,7 @@ if(isset($_POST['btn-proceed'])){
             <?php
             echo isset($success_message)?$success_message:'';
             ?>
-                <h4 class="text-center heading">Change Password</h4>
+                <h4 class="text-center heading">Reset Password</h4>
                 <form action="" method="post">
                     <div class="form-group">
                         <input type="text" name="email" id="" class="form-control"

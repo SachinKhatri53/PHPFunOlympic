@@ -64,7 +64,7 @@ if(isset($_POST['upload_photo'])){
                     <label for="caption">Caption</label>
                     <input type="text" name="caption" id="" class="form-control">
                     <p class="text-danger" style="font-size:12px">
-                        <?php echo isset($error['title_error']) ? $error['title_error'] : '' ?>
+                        <?php echo isset($error['caption_error']) ? $error['caption_error'] : '' ?>
                     </p>
                 </div>
                 <div class="form-group">
@@ -79,6 +79,9 @@ if(isset($_POST['upload_photo'])){
                         echo "<option value='$category_title'>$category_title</option>";
                         }?>
                     </select>
+                    <p class="text-danger" style="font-size:12px">
+                        <?php echo isset($error['category_error']) ? $error['category_error'] : '' ?>
+                    </p>
                 </div>
                 <div class="form-group">
                     <label for="title">Photo</label>

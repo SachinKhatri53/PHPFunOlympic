@@ -1,12 +1,13 @@
 <title>Profile: Fun Olympic Game</title>
 <?php include "admin_header.php" ?>
+<?php $username = $_SESSION['username'] ?>
 <div class="col-md-3" id="sidebar">
     <?php include "sidebar.php"?>
 </div>
 <div class="col-md-9" id="main-container">
     <div class="row" style="padding:20px 0">
         <?php
-        $query = "SELECT * FROM users WHERE username='sachin'";
+        $query = "SELECT * FROM users WHERE username='$username'";
         $select_user = mysqli_query($connection, $query);
         while($row = mysqli_fetch_assoc($select_user)) {
             $username    = $row['username'];
@@ -43,7 +44,7 @@
             <?php } ?>
 
             <hr>
-            <a href="">Change Password</a>
+            <a href="../change_password.php">Change Password</a>
             <hr>
         </div>
     </div>

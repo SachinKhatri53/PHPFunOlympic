@@ -36,9 +36,8 @@
                                 $vid = $row['vid'];
                                 $comment     = $row['comment'];
                                 $uploaded_date     = $row['date'];       
-                                $uploaded_time     = $row['time'];?>
-                                <?php
-                                
+                                $uploaded_time     = $row['time'];
+
                                 $query_video = "SELECT * FROM videos WHERE vid = $vid";
                                 $select_video = mysqli_query($connection, $query_video);
                                 while($row = mysqli_fetch_assoc($select_video)) {
